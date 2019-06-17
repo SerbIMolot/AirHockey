@@ -1,0 +1,3 @@
+﻿  Collision.cpp
+d:\airhockey\collision.cpp(144): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+  AirHockey.vcxproj -> D:\AirHockey\x64\Debug\AirHockey.exe
