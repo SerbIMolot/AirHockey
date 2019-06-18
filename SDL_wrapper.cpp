@@ -40,8 +40,7 @@ bool SDL_wrapper::Init()
 		//Create window
 		gWindow = SDL_CreateWindow("Air Hockey", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, displayMode.w / 2, displayMode.h / 2, SDL_WINDOW_SHOWN);
 
-		SCREEN_WIDTH = displayMode.w / 2;
-		SCREEN_HEIGHT = displayMode.h / 2;
+
 
 		if (gWindow == NULL)
 		{
@@ -78,38 +77,10 @@ bool SDL_wrapper::Init()
 
 			TimerIns::Instance();
 			TextureManager::Initialize();
-			//txtrs = TextureManager::Initialize();
-			/*
-			cam = Camera::Instance();
-			pl = new Player();
-			cam->Init();
-			map = new Map();
 
-			printf("After map init\n");
-			map->Init();
-			printf("After map init\n");
-			cam->setMap();
-			*/
-			//map->Generate();
 
 		}
-		std::cout << "Game initialized" << std::endl;
-		/*{
-		int imgFlags = IMG_INIT_PNG;
-
-		if ( !( IMG_Init( imgFlags ) & imgFlags ) )
-		{
-		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-		success = false;
-		} else
-		{
-
-		//Get window surface
-		gScreenSurface = SDL_GetWindowSurface(gWindow);
-
-		}
-
-		}*/
+		
 
 	}
 
@@ -136,9 +107,7 @@ bool SDL_wrapper::loadMedia()
 void SDL_wrapper::close()
 {
 
-	//gTextTexture.free();
-
-	//Free global font
+	
 	TTF_CloseFont(gFont);
 	gFont = NULL;
 

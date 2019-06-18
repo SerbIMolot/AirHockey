@@ -46,7 +46,7 @@ void Collision::Update()
 
 			if ( collisionCheck( obj1, obj2 ) )
 			{
-				std::cout << "COLLISIOM" << std::endl;
+				
 				addCollidedObject( obj1, obj2 );
 				
 

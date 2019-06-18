@@ -5,7 +5,7 @@
 Enemy::Enemy()
 	: Entity()
 {
-	setMoveBounds(SCREEN_WIDTH, SCREEN_HEIGHT);
+	
 	setVelocity(0, 0);
 	
 	setSkin(TextureManager::getTexture("Rocket.png"), tPusher);
@@ -14,7 +14,7 @@ Enemy::Enemy()
 	Pos()->setY( SDL_wrapper::displayMode.h / 4 );
 
 	getColShape()->addShape( Pos(), getSkin(), sCircle );
-	std::cout << Pos() << std::endl;
+	
 	setMass(100);
 	maxMovementSpeed = 300;
 	eSpeed = 200.0f;
@@ -121,8 +121,6 @@ void Enemy::move()
 }
 void Enemy::Draw()
 {
-	std::cout << "EnemyDrawPos = " << Pos()->getX() << std::endl;
-	std::cout << "Enemy RADIUS = " << std::static_pointer_cast<Circle>(getColShape()->getShapes().front())->getRadius() << std::endl;
 	getSkin()->render( Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius(), Pos()->getY() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() );
 }
 

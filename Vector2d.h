@@ -53,11 +53,6 @@ public:
 	Vector2d& operator+=(const Vector2d& r);
 	Vector2d& operator-=(const Vector2d& r);
 
-	/*Vector2d operator*(float scalar);
-	Vector2d& operator*=(float scalar);
-	Vector2d operator/(float scalar);
-	Vector2d& operator/=(float scalar);
-	*/
 	std::shared_ptr< Vector2d > operator*( float scalar );
 	void operator*=( float scalar );
 	std::shared_ptr< Vector2d > operator/( float scalar );
@@ -83,7 +78,6 @@ float dotProduct(int x1, int y1, int x2, int y2);
 
 float dotProduct(float x1, float y1, float x2, float y2);
 
-float momentumConservation();
 
 Vector2d RotateVector(Vector2d & vec, float angle);
 

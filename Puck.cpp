@@ -22,7 +22,7 @@ Puck::~Puck()
 
 void Puck::Update(std::shared_ptr<Object> obj)
 {
-	std::cout << "Puck" << std::endl;
+	
 	
 	Acceleration()->setX( ( -Velocity()->getX() * 0.97f) );
 	
@@ -38,7 +38,7 @@ void Puck::Update(std::shared_ptr<Object> obj)
 	
 	colShape->Update( Pos() );
 
-	std::cout << "Puck" << std::endl;
+	
 	if ( fabs( Velocity()->getX() * Velocity()->getX() + Velocity()->getY() * Velocity()->getY()) < 0.001f)
 	{
 	
@@ -81,9 +81,9 @@ void Puck::Update(std::shared_ptr<Object> obj)
 		Velocity()->setY( -Velocity()->getY() );
 	
 	}
-	std::cout << "Puck" << std::endl;
+	
 	colShape->Update( Pos() );
-	std::cout << "Puck" << std::endl;
+	
 }
 
 void Puck::move()

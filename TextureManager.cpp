@@ -90,7 +90,7 @@ void TextureManager::addText( std::string textureText, SDL_Color textColor, std:
 
 TextureManager* TextureManager::Initialize() {
 	if (tmInstance == nullptr) {
-		std::cout << "TEXT MAN" << std::endl;
+		
 		tmInstance = new TextureManager();
 		tmInstance->loadTextures();
 	}

@@ -148,7 +148,7 @@ void Object::setSkin( std::shared_ptr<Texture> texture, Type type )
 
 	Pos( std::make_shared < Vector2d >( position->getX() - ( skin->getWidth() / 2.0f ), position->getY() - ( skin->getHeight() / 2.0f ) ) );
 	
-	//colShape->addShape(  Pos() , texture );
+	
 }
 
 std::shared_ptr<Texture> Object::getSkin()

@@ -177,7 +177,7 @@ void Vector2d::operator*=(float scalar)
 	setX( getX() * scalar);
 
 	setY( getY() * scalar);
-//return std::make_shared< Vector2d >(this);
+
 }
 std::shared_ptr<Vector2d> Vector2d::operator/(float scalar) 
 {
@@ -190,7 +190,6 @@ void Vector2d::operator/=(float scalar)
 
 	setY( getY() / scalar );
 
-	//return std::make_shared< Vector2d >(this);
 }
 
 std::ostream & operator<<(std::ostream & out, const Vector2d & vec) {
@@ -241,11 +240,3 @@ float dotProduct( float x1, float y1, float x2, float y2)
 	return x1 * x2 + y1 * y2;
 }
 
-float momentumConservation(std::shared_ptr< Object > obj1, std::shared_ptr< Object > obj2 )
-{
-	// Conservation of momentum in 1D
-	//float m1 = (dpNorm1 * (obj1->getMass() - obj2->getMass() ) + 2.0f * obj2->getMass() * dpNorm2 ) / ( obj1->getMass() + obj2->getMass());
-	//float m2 = (dpNorm2 * (obj.second->getMass() - obj.first->getMass()) + 2.0f * obj.first->getMass() * dpNorm1) / (obj.first->getMass() + obj.second->getMass());
-
-	return 0.0f;
-}
