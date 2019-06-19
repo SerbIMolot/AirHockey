@@ -5,8 +5,8 @@
 Puck::Puck() : Entity()
 {
 	setSkin(TextureManager::getTexture("Puck.png"), tPuck);
-	Pos()->setX( ( SDL_wrapper::displayMode.w / 2 ) / 2 );
-	Pos()->setY( ( SDL_wrapper::displayMode.h / 2 ) / 2 );
+	Pos()->setX( ( SCREEN_WIDTH ) / 2 );
+	Pos()->setY( ( SCREEN_HEIGHT ) / 2 );
 	setMass(12);
 	colShape = std::make_shared< CollisionShape >();
 	colShape->addShape( Pos(), skin, sCircle );
@@ -26,15 +26,15 @@ void Puck::Update(std::shared_ptr<Object> obj)
 	
 	Acceleration()->setX( ( -Velocity()->getX() * 0.97f) );
 	
-	Acceleration()->setY( ( -Velocity()->getY() * 0.97f ) );
+	Acceleration()->setY( ( -Velocity()->getY() * 0.99f ) );
 	
 	Velocity()->addX( Acceleration()->getX() * ( TimerIns::Instance()->DeltaTime() / 1000.0f ) );
 	
 	Velocity()->addY( Acceleration()->getY() * (TimerIns::Instance()->DeltaTime() / 1000.0f) );
 
-	Pos()->addX( ( Velocity()->getX() * (TimerIns::Instance()->DeltaTime() / 1000.0f) ) * 300 );
+	Pos()->addX( ( Velocity()->getX() * (TimerIns::Instance()->DeltaTime() / 1000.0f) ) * 202 );
 
-	Pos()->addY( ( Velocity()->getY() * (TimerIns::Instance()->DeltaTime() / 1000.0f) ) * 300 );
+	Pos()->addY( ( Velocity()->getY() * (TimerIns::Instance()->DeltaTime() / 1000.0f) ) * 202 );
 	
 	colShape->Update( Pos() );
 
@@ -64,19 +64,19 @@ void Puck::Update(std::shared_ptr<Object> obj)
 	
 	}
 
-	if (Pos()->getX() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= SDL_wrapper::displayMode.w / 2)
+	if (Pos()->getX() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= SCREEN_WIDTH)
 	{
 		
-		Pos()->setX((SDL_wrapper::displayMode.w / 2) - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() );
+		Pos()->setX((SCREEN_WIDTH) - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() );
 	
 		Velocity()->setX( -Velocity()->getX() );
 	
 	}
 
-	if (Pos()->getY() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= SDL_wrapper::displayMode.h / 2)
+	if (Pos()->getY() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= SCREEN_HEIGHT)
 	{
 	
-		Pos()->setY( (SDL_wrapper::displayMode.h / 2) - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() );
+		Pos()->setY( (SCREEN_HEIGHT) - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() );
 	
 		Velocity()->setY( -Velocity()->getY() );
 	

@@ -241,6 +241,44 @@ float dotProduct( float x1, float y1, float x2, float y2)
 	return x1 * x2 + y1 * y2;
 }
 
+std::shared_ptr<Vector2d> projection(std::shared_ptr<Vector2d> vec1, std::shared_ptr<Vector2d> vec2)
+{
+	float v2Len = vec2->lengthSqr();
+	return *vec2 * ( dotProduct( vec2, vec1 ) / v2Len );
+}
+
+//std::shared_ptr<Vector2d> closestPoint(std::shared_ptr<Vector2d> vec, std::shared_ptr<Line> line)
+//{
+//	Vector2d line1 = Vector2d( *line->Pos() - *line->getEndPoint() );
+//	Vector2d line2 = Vector2d( *vec - *line->Pos() );
+//
+//
+//	float lineLenght = line1.lengthSqr();
+//
+//	float t = std::max( 0, ( int )std::min( lineLenght, dotProduct( line1, line2 ) ) ) / lineLenght;
+//
+//	std::shared_ptr< Vector2d > closestPoint = std::make_shared< Vector2d >( line->getX() + t * line1.getX(), line->getY() * line1.getY() );
+//
+//	return closestPoint;
+//
+//}
+//
+//std::shared_ptr<Vector2d> closestPoint(int x, int y, std::shared_ptr<Line> line)
+//{
+//	Vector2d line1 = Vector2d( *line->Pos() - *line->getEndPoint() );
+//	Vector2d line2 = Vector2d( x - line->Pos()->getX(), y - line->Pos()->getY() );
+//
+//
+//	float lineLenght = line1.lengthSqr();
+//
+//	float t = std::max( 0, (int)std::min( lineLenght, dotProduct( line1, line2 ) ) ) / lineLenght;
+//
+//	std::shared_ptr< Vector2d > closestPoint = std::make_shared< Vector2d >( line->getX() + t * line1.getX(), line->getY() * line1.getY() );
+//
+//	return closestPoint;
+//
+//}
+
 float momentumConservation(std::shared_ptr< Object > obj1, std::shared_ptr< Object > obj2 )
 {
 	// Conservation of momentum in 1D

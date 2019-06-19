@@ -7,6 +7,8 @@ Mouse::Mouse()
 {
 
 	setSkin(TextureManager::getTexture("Scope.png"), tMouse );
+	
+	getColShape()->addShape( -10, -10 );
 
 	setMass( 0 );
 	
@@ -17,11 +19,53 @@ Mouse::~Mouse()
 {
 }
 
+void Mouse::grabObj(std::shared_ptr<Object> obj)
+{
+	grabbedObj = std::move( obj );
+}
 
-void Mouse::Update( int x, int y, bool isReleased, int button )
+void Mouse::releaseObj()
+{
+	grabbedObj.reset();
+}
+
+
+void Mouse::UpdateStats( int x, int y, bool isReleased, int button )
 {
 	updatePosition(x, y);
+
+	if ( isReleased == false && button == SDL_BUTTON_LEFT )
+	{
+		LMBHold = true;
+		
+	}
+	else if ( isReleased == true && button == SDL_BUTTON_LEFT )
+	{
+		LMBHold = false;
+
+		releaseObj();
+	}
+
+	getColShape()->Update( Pos() );
 	
+}
+
+void Mouse::Update()
+{
+
+	if (grabbedObj != nullptr && LMBHold == true)
+	{
+		grabbedObj->updatePosition( Pos()->getX(), Pos()->getY() );
+	}
+
+	if( LMBHold == true )
+	{
+		std::cout << "LMBHOLD" << std::endl;
+	}
+
+	getColShape()->Update( Pos() );
+
+
 }
 
 void Mouse::Draw()
@@ -32,6 +76,11 @@ void Mouse::Draw()
 
 void Mouse::collisionDetected( std::shared_ptr < Object > obj )
 {
+
+	if( obj->getType() == tPusher )
+	{
+		grabObj( obj );
+	}
 }
 
 

@@ -22,6 +22,10 @@ public:
 	std::shared_ptr< Puck > puck;
 	std::shared_ptr< Enemy > enemy;
 
+	std::shared_ptr< Board > board;
+
+	bool mouseHold;
+
 
 
 	AirHockey();
@@ -37,6 +41,8 @@ public:
 	bool GameInit();
 	
 	void GameTick( );
+
+	void GameReset();
 	
 	void onMouseButtonEvent(int x, int y, bool isReleased, int button);
 

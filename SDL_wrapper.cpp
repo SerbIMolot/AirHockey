@@ -9,6 +9,8 @@ TTF_Font* SDL_wrapper::gFont = nullptr;
 SDL_DisplayMode SDL_wrapper::displayMode;
 
 
+
+
 SDL_wrapper::SDL_wrapper()
 {
 
@@ -38,10 +40,10 @@ bool SDL_wrapper::Init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow("Air Hockey", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, displayMode.w / 2, displayMode.h / 2, SDL_WINDOW_SHOWN);
+		gWindow = SDL_CreateWindow("Air Hockey", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
-		SCREEN_WIDTH = displayMode.w / 2;
-		SCREEN_HEIGHT = displayMode.h / 2;
+		//SCREEN_WIDTH = SCREEN_WIDTH;
+	//	SCREEN_HEIGHT = displayMode.h / 2;
 
 		if (gWindow == NULL)
 		{
@@ -141,6 +143,9 @@ void SDL_wrapper::close()
 	//Free global font
 	TTF_CloseFont(gFont);
 	gFont = NULL;
+
+	delete TextureManager::Initialize();
+	delete TriggersManager::Instance();
 
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);

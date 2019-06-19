@@ -8,8 +8,10 @@ class TextureManager {
 	static std::map<std::string, std::shared_ptr<Texture>> Textures;
 
 	TextureManager();
-	~TextureManager();
+
 public:
+
+	~TextureManager();
 
 	static void addTexture(const char* path);
 	static void addText(std::string textureText, SDL_Color textColor = { 0, 0, 0 }, std::string name = std::string());

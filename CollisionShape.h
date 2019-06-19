@@ -6,6 +6,10 @@ public:
 	CollisionShape();
 	~CollisionShape();
 
+	//Add point
+	void addShape( std::shared_ptr< Vector2d > vec );
+	void addShape( int x, int y );
+
 	//Add rectangle
 	void addShape( float x, float y, float w, float h );
 	void addShape( std::shared_ptr< Vector2d > vec, float w, float h );
@@ -23,6 +27,12 @@ public:
 	std::vector< std::shared_ptr< Shape > > getShapes();
 
 	std::shared_ptr<Shape> getFirst();
+
+	std::shared_ptr<Circle> getCircle( int index = 0 );
+
+	std::shared_ptr<Rectangle> getRectangle( int index = 0 );
+
+	std::shared_ptr<Shape> getPoint(int index = 0 );
 
 };
 

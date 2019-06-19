@@ -26,6 +26,8 @@ private:
 	std::shared_ptr< Vector2d > velocity;
 	std::shared_ptr< Vector2d > acceleration;
 
+	float speed;
+
 	std::shared_ptr< Shape > collisionShape;
 
 	std::shared_ptr< CollisionShape > colShape;
@@ -44,6 +46,11 @@ private:
 	std::shared_ptr< Circle > collisionCircle;
 
 	bool movable;
+
+
+	float phSimTimeRemein;
+
+
 public:
 	float maxA;
 	/*
@@ -131,12 +138,18 @@ public:
 
 	virtual void Draw() = 0;
 
-	virtual void collisionDetected( std::shared_ptr< Object > obj) = 0;
+	virtual void collisionDetected( std::shared_ptr< Object > obj ) = 0;
 // Getters
 	std::shared_ptr<Vector2d> Pos();
 	std::shared_ptr<Vector2d> Velocity();
 	std::shared_ptr<Vector2d> Acceleration();
 	std::shared_ptr<CollisionShape> getColShape();
+
+	float getSimTimeRem();
+
+	bool isMovable();
+
+	float getSpeed();
 
 // Setters
 	void Pos(std::shared_ptr< Vector2d > vec);
@@ -147,6 +160,12 @@ public:
 
 	void Acceleration(std::shared_ptr<Vector2d> vec);
 	void Acceleration(float x, float y);
+
+	void setSimTimeRem( float t );
+
+	void setMovable(bool mov);
+
+	void setSpeed( float s );
 
 	
 	void moveTo( int x, int y );

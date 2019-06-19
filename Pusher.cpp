@@ -6,12 +6,12 @@ Pusher::Pusher() : Entity()
 {
 
 	colShape = std::make_shared< CollisionShape >();
-	setMoveBounds(SCREEN_WIDTH, SCREEN_HEIGHT);
+	//setMoveBounds(SCREEN_WIDTH, SCREEN_HEIGHT);
 	setVelocity(0, 0);
 	std::cout << "PL S" << std::endl;
 	setSkin(TextureManager::getTexture("Rocket.png"), tPusher);
-	Pos()->setX( SDL_wrapper::displayMode.w / 8 );
-	Pos()->setY( SDL_wrapper::displayMode.h / 4 );
+	Pos()->setX( SCREEN_HEIGHT / 4 );
+	Pos()->setY( SCREEN_HEIGHT / 2 );
 	setMass(20);
 
 	colShape->addShape( Pos(), skin, sCircle );
@@ -48,7 +48,7 @@ void Pusher::Update(std::shared_ptr<Object> obj)
 		if (Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() <= 0)
 		{
 		
-			Pos()->setX(std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius());
+			Pos()->setX( getColShape()->getCircle()->getRadius() );
 		
 		}
 
@@ -59,16 +59,16 @@ void Pusher::Update(std::shared_ptr<Object> obj)
 		
 		}
 
-		if (Pos()->getX() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= (SDL_wrapper::displayMode.w / 4))
+		if (Pos()->getX() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= (SCREEN_WIDTH / 2))
 		{
 		
-			Pos()->setX((SDL_wrapper::displayMode.w / 4) - std::static_pointer_cast<Circle>(getShape())->getRadius());
+			Pos()->setX((SCREEN_WIDTH / 2) - std::static_pointer_cast<Circle>(getShape())->getRadius());
 		
 		}
-		if (Pos()->getY() + std::static_pointer_cast<Circle>(getShape())->getRadius() >= SDL_wrapper::displayMode.h / 2)
+		if (Pos()->getY() + std::static_pointer_cast<Circle>(getShape())->getRadius() >= SCREEN_HEIGHT)
 		{
 
-			Pos()->setY((SDL_wrapper::displayMode.h / 2) - std::static_pointer_cast<Circle>(getShape())->getRadius());
+			Pos()->setY((SCREEN_HEIGHT) - std::static_pointer_cast<Circle>(getShape())->getRadius());
 		
 		}
 		std::cout << "Pusher" << std::endl;

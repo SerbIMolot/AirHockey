@@ -2,39 +2,21 @@
 class Mouse : public Object
 {
 
+	std::shared_ptr< Object > grabbedObj;
+
+	bool LMBHold;
+	bool RMBHold;
+
 public:
 	Mouse();
 	~Mouse();
-	/*
-	void Mouse::updatePosition() 
-	{
-		
-		updateVelocity();
-		
-		Pos( xPos + xVel );
 
-	}
+	void grabObj( std::shared_ptr< Object > obj );
+	void releaseObj();
 
-	void Mouse::updateVelocity() 
-	{
-		
-		updateAccel();
-		
-		Velocity( Velocity() + Acceleration() );
-	
-	}
+	void UpdateStats( int x, int y, bool isReleased, int button );
 
-	void Mouse::updateAccel() 
-	{
-	
-		Acceleration( Pos() - prevMouseX) / someConstant ); //or whatever formula works best
-
-	}
-*/
-
-
-
-	void Update( int x, int y, bool isReleased, int button );
+	void Update();
 
 	void Draw();
 

@@ -25,7 +25,7 @@ void EventHandle::Update()
 		
 		if (e.type == SDL_MOUSEMOTION || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP)
 		{
-			bool isReleased = true;
+			bool isReleased = false;
 
 			if ( e.type == SDL_MOUSEBUTTONDOWN )
 			{

@@ -5,21 +5,22 @@
 Enemy::Enemy()
 	: Entity()
 {
-	setMoveBounds(SCREEN_WIDTH, SCREEN_HEIGHT);
+	//setMoveBounds(SCREEN_WIDTH, SCREEN_HEIGHT);
 	setVelocity(0, 0);
 	
 	setSkin(TextureManager::getTexture("Rocket.png"), tPusher);
 	
-	Pos()->setX( SDL_wrapper::displayMode.w / 4 + SDL_wrapper::displayMode.w / 6 );
-	Pos()->setY( SDL_wrapper::displayMode.h / 4 );
+	Pos()->setX( SCREEN_WIDTH / 2 + SCREEN_WIDTH / 3 );
+	Pos()->setY( SCREEN_HEIGHT / 2 );
 
 	getColShape()->addShape( Pos(), getSkin(), sCircle );
 	std::cout << Pos() << std::endl;
-	setMass(100);
+	setMass(12);
 	maxMovementSpeed = 300;
 	eSpeed = 200.0f;
 	targetPos = std::make_shared< Vector2d >();
 	lastHit.start();
+	
 }
 
 
@@ -29,7 +30,7 @@ Enemy::~Enemy()
 
 bool Enemy::puckInCorner()
 {
-	if ( puck->Pos()->getX() > SDL_wrapper::displayMode.w / 4 + std::static_pointer_cast< Circle >( puck->getShape() )->getRadius() )
+	if ( puck->Pos()->getX() > SCREEN_WIDTH / 2 + std::static_pointer_cast< Circle >( puck->getShape() )->getRadius() )
 	{
 		return true;
 	}
@@ -64,7 +65,7 @@ void Enemy::defence()
 	std::uniform_real_distribution< float > offsetEn(-1, 1);
 	float offset = offsetEn( generator );
 
-	moveTo( Pos()->getX() , Pos()->getY(), SDL_wrapper::displayMode.w / 4 + SDL_wrapper::displayMode.w / 6, puck->Pos()->getY() + offset );
+	moveTo( Pos()->getX() , Pos()->getY(), SCREEN_WIDTH / 2 + SCREEN_WIDTH / 3, puck->Pos()->getY() + offset );
 	
 	
 }
@@ -85,10 +86,10 @@ void Enemy::Update( std::shared_ptr< Object > obj1 )
 	
 	makeDecision();
 	
-	if (Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() <= SDL_wrapper::displayMode.w / 4)
+	if (Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() <= SCREEN_WIDTH / 2)
 	{
 
-		Pos()->setX((SDL_wrapper::displayMode.w / 4) + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius());
+		Pos()->setX((SCREEN_WIDTH / 2) + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius());
 
 	}
 	if (Pos()->getY() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() <= 0)
@@ -98,16 +99,16 @@ void Enemy::Update( std::shared_ptr< Object > obj1 )
 
 	}
 
-	if (Pos()->getX() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= SDL_wrapper::displayMode.w / 2)
+	if (Pos()->getX() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= SCREEN_WIDTH)
 	{
 		
-		Pos()->setX((SDL_wrapper::displayMode.w / 2) - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius());
+		Pos()->setX((SCREEN_WIDTH) - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius());
 
 	}
-	if (Pos()->getY() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= SDL_wrapper::displayMode.h / 2)
+	if (Pos()->getY() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= SCREEN_HEIGHT)
 	{
 
-		Pos()->setY((SDL_wrapper::displayMode.h / 2) - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius());
+		Pos()->setY((SCREEN_HEIGHT) - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius());
 
 	}
 
