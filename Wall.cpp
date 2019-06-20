@@ -13,7 +13,7 @@ Wall::Wall(std::shared_ptr<Vector2d> vec, std::shared_ptr<Rectangle> rect)
 
 	//move add shape to Wall methods
 	getColShape()->addShape( Pos(), rect->w, rect->h );
-	
+
 
 	setMovable(false);
 }
@@ -30,7 +30,7 @@ Wall::Wall( float x, float y, std::shared_ptr<Rectangle> rect )
 
 	//move add shape to Wall methods
 	getColShape()->addShape( Pos(), rect->w, rect->h );
-	
+
 
 	setMovable(false);
 }
@@ -47,7 +47,7 @@ Wall::Wall( float x, float y, std::shared_ptr< Texture > text )
 
 	
 	getColShape()->addShape(Pos(), text, sBox);
-	
+
 
 	setMovable(false);
 }
@@ -63,7 +63,7 @@ Wall::Wall(std::shared_ptr< Vector2d > vec, std::shared_ptr< Texture > text )
 
 	//move add shape to Wall methods
 	getColShape()->addShape( Pos(), text, sBox );
-	
+	getColShape()->Update( Pos() );
 
 	setMovable(false);
 }
@@ -78,9 +78,9 @@ Wall::~Wall()
 
 void Wall::Draw()
 {
-	getSkin()->render( Pos()->getX() - std::static_pointer_cast< Rectangle >( getColShape()->getFirst() )->w / 2,
-					   Pos()->getY() - std::static_pointer_cast< Rectangle >( getColShape()->getFirst() )->h / 2 );
-	//getSkin()->render( Pos() );
+	//getSkin()->render( Pos()->getX() - std::static_pointer_cast< Rectangle >( getColShape()->getFirst() )->w / 2,
+	//				   Pos()->getY() - std::static_pointer_cast< Rectangle >( getColShape()->getFirst() )->h / 2 );
+	getSkin()->render( Pos() );
 }
 
 void Wall::Update(std::shared_ptr<Object> obj)

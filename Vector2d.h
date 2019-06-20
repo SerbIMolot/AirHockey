@@ -33,18 +33,27 @@ public:
 	void setY(float y);
 
 
-	float length();
+	float magnitude();
 	float lengthSqr();
 
 	void normalise();
 
+	// perproduct
+	// right hand normal of vector
+	std::shared_ptr< Vector2d > rightHNormal();
+	// left hand normal of vector
+	std::shared_ptr< Vector2d > leftHNormal();
+
 
 	Vector2d operator+(Vector2d& r);
 	Vector2d operator-(Vector2d& r);
+
 	Vector2d& operator+=(Vector2d& r);
 	Vector2d& operator-=(Vector2d& r);
+
 	std::shared_ptr< Vector2d > operator+( std::shared_ptr< Vector2d >& r );
 	std::shared_ptr< Vector2d > operator-(std::shared_ptr< Vector2d >& r);
+
 	void operator+=(std::shared_ptr< Vector2d > r);
 	void operator-=(std::shared_ptr< Vector2d > r);
 
@@ -63,25 +72,27 @@ public:
 	std::shared_ptr< Vector2d > operator/( float scalar );
 	void operator/=( float scalar );
 
-	friend std::ostream& operator<<(std::ostream& out, const Vector2d& vec);
-	friend std::ostream& operator<<(std::ostream & out, std::shared_ptr< Vector2d > vec);
+	friend std::ostream& operator<<( std::ostream& out, const Vector2d& vec );
+	friend std::ostream& operator<<( std::ostream & out, std::shared_ptr< Vector2d > vec );
 };
 
 float distance( std::shared_ptr< Vector2d > vec1, std::shared_ptr < Vector2d > vec2 );
 
 float distance( int x1, int y1, int x2, int y2 );
 
-float distanceSquared(std::shared_ptr< Vector2d > vec1, std::shared_ptr < Vector2d > vec2);
+float distanceSquared( std::shared_ptr< Vector2d > vec1, std::shared_ptr < Vector2d > vec2 );
 
-float distanceSquared(int x1, int y1, int x2, int y2);
+float distanceSquared( Vector2d& vec1, Vector2d& vec2 );
+
+float distanceSquared( int x1, int y1, int x2, int y2 );
 
 float dotProduct( Vector2d& vec1, Vector2d& vec2 );
 
-float dotProduct( std::shared_ptr< Vector2d > vec1, std::shared_ptr< Vector2d > vec2);
+float dotProduct( std::shared_ptr< Vector2d > vec1, std::shared_ptr< Vector2d > vec2 );
 
-float dotProduct(int x1, int y1, int x2, int y2);
+float dotProduct( int x1, int y1, int x2, int y2 );
 
-float dotProduct(float x1, float y1, float x2, float y2);
+float dotProduct( float x1, float y1, float x2, float y2 );
 
 std::shared_ptr< Vector2d > projection( std::shared_ptr< Vector2d > vec1, std::shared_ptr< Vector2d > vec2 );
 
@@ -92,6 +103,8 @@ std::shared_ptr< Vector2d > projection( std::shared_ptr< Vector2d > vec1, std::s
 //std::shared_ptr< Vector2d > closestPoint( std::shared_ptr< Vector2d > vec, std::shared_ptr< Rectangle > rect );
 //
 //std::shared_ptr< Vector2d > closestPoint( int x, int y, std::shared_ptr< Rectangle > rect );
+
+float clamp( float n, float lower, float upper );
 
 float momentumConservation();
 

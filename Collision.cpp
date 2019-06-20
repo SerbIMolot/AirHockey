@@ -52,7 +52,7 @@ void Collision::Update()
 
 		for( auto obj2 : Objects )
 		{
-			if ( obj1 == obj2 || obj1->getType() == tWall && obj2->getType() == tWall )
+			if ( obj1 == obj2 )
 			{
 				continue;
 			}
@@ -125,7 +125,7 @@ bool Collision::collisionCheck( std::shared_ptr<Object> obj1, std::shared_ptr<Ob
 			if ( sh1->getType() == sBox && sh2->getType() == sCircle )
 			{
 
-				return circRectCollisionCheck( std::static_pointer_cast< Circle >( sh1 ), std::static_pointer_cast< Rectangle >( sh2 ) );
+				return circRectCollisionCheck( std::static_pointer_cast< Circle >( sh2 ), std::static_pointer_cast< Rectangle >( sh1 ) );
 	
 			}
 
@@ -257,7 +257,7 @@ bool Collision::circleCollisionCheck(std::shared_ptr<Circle> circ1, std::shared_
 
 	totalDistanceSquared = totalDistanceSquared * totalDistanceSquared;
 
-	if ( fabs( distanceSquared( circ1->getVec(), circ2->getVec() ) ) <= totalDistanceSquared )
+	if ( fabs( distanceSquared( circ1->Pos(), circ2->Pos() ) ) <= totalDistanceSquared )
 	{
 		return true;
 	}
@@ -301,38 +301,57 @@ bool Collision::RectCollisionCheck(std::shared_ptr<Rectangle> rect, std::shared_
 
 bool Collision::circRectCollisionCheck(std::shared_ptr<Circle> circ, std::shared_ptr<Rectangle> rect)
 {
+	float NearestX = std::max(rect->getX(), std::min(circ->getX(), rect->getX() + rect->w));
+	float NearestY = std::max(rect->getY(), std::min(circ->getY(), rect->getY() + rect->h));
 
-	float distX = abs( circ->Pos()->getX() - rect->Pos()->getX() );
-	float distY = abs( circ->Pos()->getY() - rect->Pos()->getY() );
+	//float distX = abs( circ->Pos()->getX() - rect->Pos()->getX() );
+	//float distY = abs( circ->Pos()->getY() - rect->Pos()->getY() );
+	//
+	//if( distX > rect->w / 2 + circ->getRadius() )
+	//{
+	//	return false;
+	//}
+	//
+	//if( distY > rect->h / 2 + circ->getRadius() )
+	//{
+	//	return false;
+	//}
+	//if( distX <= rect->w / 2 + circ->getRadius() )
+	//{,
+	//	return true;
+	//}
+	//
+	//if( distY <= rect->h / 2 + circ->getRadius() )
+	//{
+	//	return true;
+	//}
+	// Find the closest point to the circle within the rectangle
+//	float closestX = clamp(circ->getX(), rect->LeftSide(), rect->RightSide() );
+//	float closestY = clamp(circ->getY(), rect->topSide(), rect->BottomSide() );
+	Vector2d closestP = Vector2d( clamp( circ->getX(), rect->LeftSide(), rect->RightSide() ),
+								  clamp( circ->getY(), rect->topSide(), rect->BottomSide() ) );
 
-	if( distX > rect->w / 2 + circ->getRadius() )
-	{
-		return false;
-	}
+	float Nea3restX = std::max(rect->getX(), std::min(circ->Pos()->getX(), rect->getX() + rect->w));
+	float N3earestY = std::max(rect->getY(), std::min(circ->Pos()->getY(), rect->getY() + rect->h));
 
-	if( distY > rect->h / 2 + circ->getRadius() )
-	{
-		return false;
-	}
-	if( distX <= rect->w / 2 + circ->getRadius() )
-	{
-		return true;
-	}
+	// Calculate the distance between the circle's center and this closest point
+//	float distanceX = circ->getX() - closestX;
+//	float distanceY = circ->getY() - closestY;
+	Vector2d distance = *circ->Pos() - closestP;
+	// If the distance is less than the circle's radius, an intersection occurs
 
-	if( distY <= rect->h / 2 + circ->getRadius() )
-	{
-		return true;
-	}
+	return distance.lengthSqr() < (circ->getRadius() * circ->getRadius() );
+///		Vector2d vec4 = circ->Pos().get - Vector2d( NearestX, NearestY ) ;
+	//	float cornedDist = vec4.magnitude();
+		//distance(NearestX, NearestY, rect->w / 2, rect->h / 2 );
 
-	float cornedDist = distance( distX, distY, rect->w / 2, rect->h / 2 );
+	//if(cornedDist  <= ( circ->getRadius() * circ->getRadius() ) )
+	//{
+//		return true;
+//	}
 
-	if( cornedDist <= ( circ->getRadius() * circ->getRadius() ) )
-	{
-		return true;
-	}
-
-	return false;
-
+	//return false;
+//
 }
 float Collision::circleCircleOverlap( std::shared_ptr<Circle> circ1, std::shared_ptr<Circle> circ2 )
 {
@@ -346,7 +365,7 @@ float Collision::circRectOverlap(std::shared_ptr<Circle> circ, std::shared_ptr<R
 
 	//if ()
 	float nearestRectEdge = 0;
-
+/*
 	if ( abs( circ->Pos()->getY() - rect->topSide() ) > abs( circ->Pos()->getY() - rect->BottomSide() ) )
 	{
 		nearestRectEdge = rect->BottomSide();
@@ -370,24 +389,90 @@ float Collision::circRectOverlap(std::shared_ptr<Circle> circ, std::shared_ptr<R
 		leftBound = std::max( -num , rect->LeftSide() );
 		rightBound = std::min( num , rect->RightSide() );
 	}
+	*/
 	Vector2d vec;
-	float distanseX = circ->Pos()->getX() - std::max( rect->Pos()->getX(), std::min( circ->Pos()->getX(), rect->RightSide() ) );
-	float distanseY = circ->Pos()->getY() - std::max( rect->Pos()->getY(), std::min( circ->Pos()->getY(), rect->BottomSide() ) );
-	std::shared_ptr< Vector2d > vec1 = std::make_shared< Vector2d >( distanseX, distanseY );
-	std::shared_ptr< Vector2d > vec2 = std::make_shared< Vector2d >( distanseX, distanseY );
-	vec2->normalise();
+
+	float closestX = circ->Pos()->getX() - std::max( rect->Pos()->getX(), std::min( circ->Pos()->getX(), rect->RightSide() ) );
+	float closestY = circ->Pos()->getY() - std::max( rect->Pos()->getY(), std::min( circ->Pos()->getY(), rect->BottomSide() ) );
+	//float distX = distanseX - circ->Pos()->getX();
+	//float distY = distanseY - circ->Pos()->getY();
+
+
+	float distX = abs(circ->Pos()->getX() - rect->Pos()->getX());
+	float distY = abs(circ->Pos()->getY() - rect->Pos()->getY());
+
+
+	float NearestX = std::max(rect->getX(), std::min( circ->Pos()->getX(), rect->getX() + rect->w));
+	float NearestY = std::max(rect->getY(), std::min( circ->Pos()->getY(), rect->getY() + rect->h));
+	Vector2d dist = Vector2d(circ->getX() - NearestX, circ->getY() - NearestY);
+
+	//if ( circle.vel.dot(dist) < 0) { //if circle is moving toward the rect
+	//								//update circle.vel using one of the above methods
+	//}
+
+	float penetrationDepth = circ->getRadius() - dist.magnitude();
+	//var penetrationVector = dist.normalise().mult(penetrationDepth);
+	//circle.pos = circle.pos.sub(penetrationVector);
+	Vector2d penetrationVector = dist;
+	penetrationVector.normalise();
+	penetrationVector *= penetrationDepth;
+
+	for (int i = 0; i < 10; i++)
+	{
+		std::cout << "OVERLAP" << penetrationDepth << std::endl;
+		std::cout << "dist" << dist << std::endl;
+	}
+	return penetrationVector.magnitude();
+
+	//float dist = distance( vec1, vec2 );
+	//float nx = (vec1->getX() - vec2->getX()) / dist;
+	//float ny = (vec1->getY() - vec2->getY()) / dist;
+
+	//std::shared_ptr< Vector2d > vecN = std::make_shared< Vector2d >(nx, ny);
+
+	//float closestX = clamp( circ->Pos()->getX(), rect->LeftSide(), rect->RightSide() );
+	//float closestY = clamp( circ->Pos()->getY(), rect->topSide(), rect->BottomSide() );
+	//
+	//
+	//
+	//float distX = circ->Pos()->getX() - distanseX;
+	//float distY = circ->Pos()->getY() - distanseY;
+	//std::shared_ptr< Vector2d > vec1 = std::make_shared< Vector2d >(closestX, closestY);
+	//std::shared_ptr< Vector2d > vec2 = std::make_shared< Vector2d >(distX, distY);
+	//vec2->normalise();
 	
 	//return ( distance( distX, distY, vec1.getX(), vec1.getY() ) / distance( vec1.getX(), vec1.getY(), vec1.getX(), vec1.getY() ) ) ;
 
-	return  vec1->length() - circ->getRadius();
+	return  distance( closestX, closestY, distX, distY );
 
-	float cornedDist = distanceSquared(distanseX, distanseY, rect->w / 2, rect->h / 2) - circ->getRadius();
 
-	if (cornedDist <= (circ->getRadius() * circ->getRadius()))
-	{
-		//return true;
-	}
-	return   distance(distanseX, distanseY, rect->w / 2, rect->h / 2) - (circ->getRadius() * circ->getRadius() ) * vec.length() ;
+	/*
+		float fDistance = distance( obj.first->Pos(), obj.second->Pos() );
+		
+		// Normal
+		float nx = (obj.second->Pos()->getX() - obj.first->Pos()->getX()) / fDistance;
+		float ny = (obj.second->Pos()->getY() - obj.first->Pos()->getY()) / fDistance;
+
+		// Tangent
+		float tx = -ny;
+		float ty = nx;
+
+		// Dot Product Tangent
+		float dpTan1 = dotProduct( obj.first->Velocity()->getX(), obj.first->Velocity()->getY(), tx, ty );
+		float dpTan2 = dotProduct( obj.second->Velocity()->getX(), obj.second->Velocity()->getY(), tx, ty );
+
+		// Dot Product Normal
+		float dpNorm1 = dotProduct( obj.first->Velocity()->getX(), obj.first->Velocity()->getY(), nx, ny );
+		float dpNorm2 = dotProduct( obj.second->Velocity()->getX(), obj.second->Velocity()->getY(), nx , ny );*/
+
+
+	//float cornedDist = distanceSquared(distanseX, distanseY, rect->w / 2, rect->h / 2) - circ->getRadius();
+
+	//if (cornedDist <= (circ->getRadius() * circ->getRadius()))
+	//{
+	//	//return true;
+	//}
+	//return   distance(distanseX, distanseY, rect->w / 2, rect->h / 2) - (circ->getRadius() * circ->getRadius() ) * vec.length() ;
 
 	//return  distance( distX, distY, rect->w / 2, rect->h / 2 ) - circ->getRadius();
 }
@@ -465,18 +550,25 @@ void Collision::staticColisionRes()
 			overlap = 0;
 
 		}
-
+		//if (obj.second->getType() == tWall)
+		//{
+		//	
+		//		obj.first->Pos()->addX( overlap );
+		//		obj.first->Pos()->addY( overlap );
+		//		continue;
+		//	
+		//}
 		if ( obj.first->isMovable() == true )
 		{ 
-			obj.first->Pos()->addX( -( overlap * ( obj.first->Pos()->getX() - obj.second->Pos()->getX() ) / pDistance ) );
-			obj.first->Pos()->addY( -( overlap * ( obj.first->Pos()->getY() - obj.second->Pos()->getY() ) / pDistance ) );
+			obj.first->Pos()->addX( ( overlap * ( obj.first->Pos()->getX() - obj.second->Pos()->getX() ) / pDistance ) );
+			obj.first->Pos()->addY( ( overlap * ( obj.first->Pos()->getY() - obj.second->Pos()->getY() ) / pDistance ) );
 		}
 
 
 		if ( obj.second->isMovable() == true )
 		{
-			obj.second->Pos()->addX( (overlap * (obj.first->Pos()->getX() - obj.second->Pos()->getX() ) ) / pDistance );
-			obj.second->Pos()->addY( (overlap * (obj.first->Pos()->getY() - obj.second->Pos()->getY() ) ) / pDistance );
+			obj.second->Pos()->addX( -(overlap * (obj.first->Pos()->getX() - obj.second->Pos()->getX() ) ) / pDistance );
+			obj.second->Pos()->addY( -(overlap * (obj.first->Pos()->getY() - obj.second->Pos()->getY() ) ) / pDistance );
 		}
 		
 		/*
@@ -537,8 +629,8 @@ void Collision::dynamicColisionRes()
 		}
 		else
 		{
-			//obj.second->Velocity()->setX( -obj.second->Velocity()->getX() );
-			//obj.second->Velocity()->setY( -obj.second->Velocity()->getY() );
+			//obj.second->Velocity()->setX( obj.first->Velocity()->getX() );
+			//obj.second->Velocity()->setY( -obj.first->Velocity()->getY() );
 		}
 
 		if ( obj.second->getType() != tPusher && obj.second->isMovable() == true )
@@ -549,7 +641,7 @@ void Collision::dynamicColisionRes()
 		}
 		else
 		{
-			//obj.first->Velocity()->setX( -obj.first->Velocity()->getX() );
+			////obj.first->Velocity()->setX( obj.first->Velocity()->getX() );
 			//obj.first->Velocity()->setY( -obj.first->Velocity()->getY() );
 		}
 	}

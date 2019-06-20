@@ -12,7 +12,7 @@ Pusher::Pusher() : Entity()
 	setSkin(TextureManager::getTexture("Rocket.png"), tPusher);
 	Pos()->setX( SCREEN_HEIGHT / 4 );
 	Pos()->setY( SCREEN_HEIGHT / 2 );
-	setMass(20);
+	setMass(0);
 
 	colShape->addShape( Pos(), skin, sCircle );
 	std::cout << "PL S" << std::endl;
@@ -28,7 +28,7 @@ Pusher::~Pusher()
 
 void Pusher::Draw()
 {
-	getSkin()->render( Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius(), Pos()->getY() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() );
+	getSkin()->render( Pos()->getX() - getColShape()->getCircle()->getRadius(), Pos()->getY() - getColShape()->getCircle()->getRadius() );
 
 }
 
@@ -45,30 +45,30 @@ void Pusher::Update(std::shared_ptr<Object> obj)
 		colShape->Update( Pos() );
 		std::cout << "Pusher" << std::endl;
 
-		if (Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() <= 0)
+		if (Pos()->getX() - getColShape()->getCircle()->getRadius() <= 0)
 		{
 		
 			Pos()->setX( getColShape()->getCircle()->getRadius() );
 		
 		}
 
-		if (Pos()->getY() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() <= 0)
+		if (Pos()->getY() - getColShape()->getCircle()->getRadius() <= 0)
 		{
 
-			Pos()->setY(std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius());
+			Pos()->setY( getColShape()->getCircle()->getRadius() );
 		
 		}
 
-		if (Pos()->getX() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= (SCREEN_WIDTH / 2))
+		if (Pos()->getX() + getColShape()->getCircle()->getRadius() >= (SCREEN_WIDTH / 2))
 		{
 		
-			Pos()->setX((SCREEN_WIDTH / 2) - std::static_pointer_cast<Circle>(getShape())->getRadius());
+			Pos()->setX((SCREEN_WIDTH / 2) - getColShape()->getCircle()->getRadius() );
 		
 		}
-		if (Pos()->getY() + std::static_pointer_cast<Circle>(getShape())->getRadius() >= SCREEN_HEIGHT)
+		if (Pos()->getY() + getColShape()->getCircle()->getRadius() >= SCREEN_HEIGHT )
 		{
 
-			Pos()->setY((SCREEN_HEIGHT) - std::static_pointer_cast<Circle>(getShape())->getRadius());
+			Pos()->setY( (SCREEN_HEIGHT) - getColShape()->getCircle()->getRadius() );
 		
 		}
 		std::cout << "Pusher" << std::endl;

@@ -129,6 +129,8 @@ std::shared_ptr< Rectangle > CollisionShape::getRectangle( int index )
 			return nullptr;
 		}
 
+		//std::shared_ptr< Rectangle >  rect = std::static_pointer_cast< Rectangle >(colShape[index]);
+		
 		return std::static_pointer_cast< Rectangle >( colShape[ index ] );
 
 	}

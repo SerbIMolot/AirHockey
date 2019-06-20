@@ -49,34 +49,34 @@ void Puck::Update(std::shared_ptr<Object> obj)
 	if (Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front())->getRadius() <= 0)
 	{
 
-		Pos()->setX( std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() );
+		Pos()->setX( getColShape()->getCircle()->getRadius() );
 		
 		Velocity()->setX(-Velocity()->getX());
 
 	}
 
-	if (Pos()->getY() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() <= 0)
+	if (Pos()->getY() - getColShape()->getCircle()->getRadius() <= 0)
 	{
 
-		Pos()->setY(std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius());
+		Pos()->setY(getColShape()->getCircle()->getRadius());
 		
 		Velocity()->setY(-Velocity()->getY());
 	
 	}
 
-	if (Pos()->getX() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= SCREEN_WIDTH)
+	if (Pos()->getX() + getColShape()->getCircle()->getRadius() >= SCREEN_WIDTH)
 	{
 		
-		Pos()->setX((SCREEN_WIDTH) - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() );
+		Pos()->setX((SCREEN_WIDTH) - getColShape()->getCircle()->getRadius() );
 	
 		Velocity()->setX( -Velocity()->getX() );
 	
 	}
 
-	if (Pos()->getY() + std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() >= SCREEN_HEIGHT)
+	if (Pos()->getY() + getColShape()->getCircle()->getRadius() >= SCREEN_HEIGHT)
 	{
 	
-		Pos()->setY( (SCREEN_HEIGHT) - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() );
+		Pos()->setY( (SCREEN_HEIGHT) - getColShape()->getCircle()->getRadius() );
 	
 		Velocity()->setY( -Velocity()->getY() );
 	
@@ -92,7 +92,7 @@ void Puck::move()
 
 void Puck::Draw()
 {
-	getSkin()->render( Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius(), Pos()->getY() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front() )->getRadius() );
+	getSkin()->render( Pos()->getX() - getColShape()->getCircle()->getRadius(), Pos()->getY() - getColShape()->getCircle()->getRadius() );
 }
 
 void Puck::collisionDetected( std::shared_ptr<Object> obj )

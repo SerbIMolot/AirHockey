@@ -322,3 +322,8 @@ void Object::moveTo(int x, int y)
 {
 
 }
+
+bool Object::outOfBounds()
+{
+	return false;
+}

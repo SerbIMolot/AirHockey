@@ -50,6 +50,8 @@ private:
 
 	float phSimTimeRemein;
 
+	Rectangle bounds;
+
 
 public:
 	float maxA;

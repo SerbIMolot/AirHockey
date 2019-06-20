@@ -20,7 +20,9 @@ public:
 	double lowerCircle(float x);
 
 
+	//void Update(std::shared_ptr< Vector2d > vec);
 
+	//void Update(float x, float y);
 
 	void setVec( std::shared_ptr< Vector2d > vec );
 	std::shared_ptr< Vector2d > getVec();

@@ -70,7 +70,7 @@ void Vector2d::setY(float y) {
 	this->y = y;
 }
 
-float Vector2d::length() {
+float Vector2d::magnitude() {
 	return sqrt((x*x) + (y*y));
 }
 
@@ -79,13 +79,34 @@ float Vector2d::lengthSqr() {
 }
 
 void Vector2d::normalise() {
-	float length = this->length();
-	if (length > 0) {
-		*this *= 1 / length;
+	float magnitude = this->magnitude();
+	if (magnitude > 0) {
+		*this /= magnitude;
 	}
 }
 
-Vector2d RotateVector(Vector2d& vec, float angle) 
+std::shared_ptr<Vector2d> Vector2d::rightHNormal()
+{
+	std::shared_ptr< Vector2d > bufVect = std::make_shared< Vector2d >( -getY(), getX() );
+	
+	return bufVect;
+
+}
+
+std::shared_ptr<Vector2d> Vector2d::leftHNormal()
+{
+	std::shared_ptr< Vector2d > bufVect = std::make_shared< Vector2d >( getY(), -getX() );
+
+	return bufVect;
+
+}
+
+float clamp( float n, float lower, float upper )
+{
+	return std::max( lower, std::min( n, upper ) );
+}
+
+Vector2d RotateVector(Vector2d& vec, float angle)
 {
 	float radAngle = (float)(angle*DEG_TO_RAD);
 
@@ -123,13 +144,13 @@ std::shared_ptr<Vector2d> Vector2d::operator+(std::shared_ptr<Vector2d>& r)
 	return buffer;
 }
 
-std::shared_ptr<Vector2d> Vector2d::operator-(std::shared_ptr<Vector2d>& r)
+std::shared_ptr<Vector2d> Vector2d::operator-( std::shared_ptr<Vector2d>& r)
 {
 	std::shared_ptr< Vector2d > buffer = std::make_shared< Vector2d >(this->getX() - r->getX(), this->getY() - r->getY());
 	return buffer;
 }
 
-void Vector2d::operator+=(std::shared_ptr<Vector2d> r)
+void Vector2d::operator+=( std::shared_ptr<Vector2d> r )
 {
 	setX( getX() + r->getX() );
 
@@ -137,7 +158,7 @@ void Vector2d::operator+=(std::shared_ptr<Vector2d> r)
 	
 }
 
-void Vector2d::operator-=(std::shared_ptr<Vector2d> r)
+void Vector2d::operator-=( std::shared_ptr<Vector2d> r )
 {
 	setX( getX() - r->getX() );
 
@@ -145,46 +166,46 @@ void Vector2d::operator-=(std::shared_ptr<Vector2d> r)
 
 }
 
-Vector2d Vector2d::operator+(const Vector2d& r) {
-	return Vector2d(this->x + r.x, this->y + r.y);
+Vector2d Vector2d::operator+( const Vector2d& r ) {
+	return Vector2d( this->x + r.x, this->y + r.y );
 }
 
-Vector2d Vector2d::operator-(const Vector2d& r) {
-	return Vector2d(this->x - r.x, this->y - r.y);
+Vector2d Vector2d::operator-( const Vector2d& r ) {
+	return Vector2d( this->x - r.x, this->y - r.y );
 }
 
-Vector2d& Vector2d::operator+=(const Vector2d& r) {
+Vector2d& Vector2d::operator+=( const Vector2d& r ) {
 	this->x += r.x;
 	this->y += r.y;
 
 	return *this;
 }
 
-Vector2d& Vector2d::operator-=(const Vector2d& r) {
+Vector2d& Vector2d::operator-=( const Vector2d& r ) {
 	this->x -= r.x;
 	this->y -= r.y;
 
 	return *this;
 }
 
-std::shared_ptr<Vector2d> Vector2d::operator*(float scalar) 
+std::shared_ptr<Vector2d> Vector2d::operator*( float scalar ) 
 {
 	return std::make_shared< Vector2d >( x*scalar, y*scalar );
 }
 
-void Vector2d::operator*=(float scalar)
+void Vector2d::operator*=( float scalar )
 {
-	setX( getX() * scalar);
+	setX( getX() * scalar );
 
-	setY( getY() * scalar);
+	setY( getY() * scalar );
 //return std::make_shared< Vector2d >(this);
 }
-std::shared_ptr<Vector2d> Vector2d::operator/(float scalar) 
+std::shared_ptr<Vector2d> Vector2d::operator/( float scalar ) 
 {
 	return std::make_shared< Vector2d >( x / scalar, y / scalar);
 }
 
-void Vector2d::operator/=(float scalar)
+void Vector2d::operator/=( float scalar )
 {
 	setX( getX() / scalar );
 
@@ -193,40 +214,45 @@ void Vector2d::operator/=(float scalar)
 	//return std::make_shared< Vector2d >(this);
 }
 
-std::ostream & operator<<(std::ostream & out, const Vector2d & vec) {
+std::ostream & operator<<( std::ostream & out, const Vector2d & vec ) {
 	out << "(" << vec.x << "," << vec.y << ")";
 	return out;
 }
 
-std::ostream & operator<<(std::ostream & out, std::shared_ptr< Vector2d > vec) {
+std::ostream & operator<<( std::ostream & out, std::shared_ptr< Vector2d > vec ) {
 	out << "(" << vec->getX() << "," << vec->getY() << ")";
 	return out;
 }
 
-float distance(std::shared_ptr<Vector2d> vec1, std::shared_ptr<Vector2d> vec2)
+float distance( std::shared_ptr< Vector2d > vec1, std::shared_ptr< Vector2d > vec2 )
 {
 	return distance( vec1->getX(), vec1->getY(), vec2->getX(), vec2->getY() );
 }
-float distanceSquared(std::shared_ptr<Vector2d> vec1, std::shared_ptr<Vector2d> vec2)
+float distanceSquared( std::shared_ptr< Vector2d > vec1, std::shared_ptr< Vector2d > vec2 )
 {
 	return distanceSquared( vec1->getX(), vec1->getY(), vec2->getX(), vec2->getY() );
 }
 
-float distance(int x1, int y1, int x2, int y2)
+float distanceSquared( Vector2d& vec1, Vector2d& vec2 )
+{
+	return distanceSquared( vec1.getX(), vec1.getY(), vec2.getX(), vec2.getY() );
+}
+
+float distance( int x1, int y1, int x2, int y2 )
 {
 	return sqrtf( ( x1 - x2 ) * ( x1 - x2 ) + ( y1 - y2 ) * ( y1 - y2 ) );
 }
-float distanceSquared(int x1, int y1, int x2, int y2)
+float distanceSquared( int x1, int y1, int x2, int y2 )
 {
 	return ( x1 - x2 ) * ( x1 - x2 ) + ( y1 - y2 ) * ( y1 - y2 );
 }
 
-float dotProduct(Vector2d & vec1, Vector2d & vec2)
+float dotProduct( Vector2d & vec1, Vector2d & vec2 )
 {
 	return vec1.getX() * vec2.getX() + vec1.getY() * vec2.getY();
 }
 
-float dotProduct(std::shared_ptr<Vector2d> vec1, std::shared_ptr<Vector2d> vec2)
+float dotProduct( std::shared_ptr< Vector2d > vec1, std::shared_ptr< Vector2d > vec2 )
 {
 	return vec1->getX() * vec2->getX() + vec1->getY() * vec2->getY();
 }
