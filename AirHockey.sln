@@ -5,11 +5,6 @@ VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AirHockey", "AirHockey.vcxproj", "{C1213749-7C25-4E18-AE90-C64F41DBF496}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest1", "..\UnitTest1\UnitTest1.vcxproj", "{36BE2A92-69D1-467C-8737-91CCEB57BCF9}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C1213749-7C25-4E18-AE90-C64F41DBF496} = {C1213749-7C25-4E18-AE90-C64F41DBF496}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -26,14 +21,6 @@ Global
 		{C1213749-7C25-4E18-AE90-C64F41DBF496}.Release|x64.Build.0 = Release|x64
 		{C1213749-7C25-4E18-AE90-C64F41DBF496}.Release|x86.ActiveCfg = Release|Win32
 		{C1213749-7C25-4E18-AE90-C64F41DBF496}.Release|x86.Build.0 = Release|Win32
-		{36BE2A92-69D1-467C-8737-91CCEB57BCF9}.Debug|x64.ActiveCfg = Debug|x64
-		{36BE2A92-69D1-467C-8737-91CCEB57BCF9}.Debug|x64.Build.0 = Debug|x64
-		{36BE2A92-69D1-467C-8737-91CCEB57BCF9}.Debug|x86.ActiveCfg = Debug|Win32
-		{36BE2A92-69D1-467C-8737-91CCEB57BCF9}.Debug|x86.Build.0 = Debug|Win32
-		{36BE2A92-69D1-467C-8737-91CCEB57BCF9}.Release|x64.ActiveCfg = Release|x64
-		{36BE2A92-69D1-467C-8737-91CCEB57BCF9}.Release|x64.Build.0 = Release|x64
-		{36BE2A92-69D1-467C-8737-91CCEB57BCF9}.Release|x86.ActiveCfg = Release|Win32
-		{36BE2A92-69D1-467C-8737-91CCEB57BCF9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
