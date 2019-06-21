@@ -12,8 +12,6 @@ public:
 
 	bool loadFromFile(std::string path, SDL_Color colorKey );
 
-	bool loadFromText( std::string textureText, SDL_Color textColor );
-
 	void free();
 
 	void render( int x, int y, SDL_Rect* clip = nullptr, double angle = 0.0, SDL_Point* center = nullptr, SDL_RendererFlip flip = SDL_FLIP_NONE );

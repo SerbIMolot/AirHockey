@@ -4,8 +4,6 @@
 
 SDL_Renderer* SDL_wrapper::gRenderer = nullptr;
 
-TTF_Font* SDL_wrapper::gFont = nullptr;
-
 SDL_DisplayMode SDL_wrapper::displayMode;
 
 
@@ -99,15 +97,6 @@ bool SDL_wrapper::loadMedia()
 {
 	bool success = true;
 
-	gFont = TTF_OpenFont("Data/lazy.ttf", 28);
-	if (gFont == NULL)
-	{
-		printf("Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError());
-		success = false;
-	}
-	else
-	{
-	}
 	return success;
 }
 
@@ -125,9 +114,6 @@ void SDL_wrapper::drawRect(std::shared_ptr<Rectangle> rect, const SDL_Color & co
 
 void SDL_wrapper::close()
 {
-
-	TTF_CloseFont(gFont);
-	gFont = NULL;
 
 	delete TextureManager::Initialize();
 	delete TriggersManager::Instance();

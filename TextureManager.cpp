@@ -58,39 +58,6 @@ void TextureManager::addTexture(const char * path) {
  	Textures[fileName]->loadFromFile(path);
 }
 
-void TextureManager::addText( std::string textureText, SDL_Color textColor, std::string name )
-{
-
-	std::string fileName;
-
-	if ( name.empty() )
-	{
-
-		fileName = textureText.substr( 0, textureText.find_first_of( " " ) );
-		
-		int i = 0;
-		for (auto k : Textures)
-		{
-			if (k.first == fileName)
-			{
-				i++;
-			}
-		}
-		fileName += std::to_string(i);
-
-
-	}
-	else 
-	{
-		fileName = name;
-	}
-
-	printf( "Texture : %s\n", fileName.c_str() );
-
-	Textures[fileName] = std::make_shared<Texture>();
-	Textures[fileName]->loadFromText( textureText, textColor );
-}
-
 
 
 TextureManager* TextureManager::Initialize() {
