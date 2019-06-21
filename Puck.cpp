@@ -38,6 +38,13 @@ void Puck::Update(std::shared_ptr<Object> obj)
 	
 	colShape->Update( Pos() );
 
+	if (fabs(Velocity()->getX() * Velocity()->getX() + Velocity()->getY() * Velocity()->getY()) < 0.001f)
+	{
+
+		Velocity(0, 0);
+
+	}
+
 	if (Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front())->getRadius() <= 15)
 	{
 

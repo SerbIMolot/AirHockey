@@ -1,6 +1,3 @@
-
-
-#include "inc.h"
 #include "stdafx.h"
 
 

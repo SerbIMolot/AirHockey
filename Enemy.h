@@ -22,6 +22,7 @@ public:
 	void Attack();
 
 	void defence();
+	void doNothing();
 	void makeDecision();
 	//void Update();
 

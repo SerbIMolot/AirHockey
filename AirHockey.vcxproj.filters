@@ -99,9 +99,6 @@
     <ClInclude Include="TriggersManager.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionStat.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="sdl\addLib\SDL_FontCache.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -192,9 +189,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="TriggersManager.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionStat.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="sdl\addLib\SDL_FontCache.c">

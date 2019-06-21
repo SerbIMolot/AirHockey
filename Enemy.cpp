@@ -49,6 +49,12 @@ void Enemy::moveTo(float x1, float y1, float x2, float y2)
 		updatePosition( x1 + speed / dist * dX, y1 + speed / dist * dY );
 
 	}
+	else
+	{
+
+		updatePosition( x2, y2 );
+
+	}
 
 }
 
@@ -61,26 +67,53 @@ void Enemy::Attack()
 
 void Enemy::defence()
 {	
-	std::uniform_real_distribution< float > offsetEn(-1, 1);
-	float offset = offsetEn( generator );
 
-	moveTo( Pos()->getX() , Pos()->getY(), SCREEN_WIDTH - 150 , puck->Pos()->getY() + offset );
-	
-	
+	moveTo( Pos()->getX() , Pos()->getY(), SCREEN_WIDTH - 150 , puck->Pos()->getY() );
+
 }
+
+void Enemy::doNothing()
+{
+
+	moveTo( Pos()->getX(), Pos()->getY(), SCREEN_WIDTH / 2 + SCREEN_WIDTH / 3,  SCREEN_HEIGHT / 2 );
+
+}
+
 void Enemy::makeDecision()
 {
-	if ( puckInCorner()  )
+	if( puckInCorner() && puck->Velocity()->getX() == 0 )
+	{
+		Attack();
+		return;
+	}
+
+	if ( puck->Velocity()->getX() > 0 ) 
 	{
 
-		Attack();
+		
+		if( Pos()->getX() < puck->Pos()->getX() )
+		{
+			doNothing();
+			return;
+		}
+		if ( puckInCorner() && lastHit.getTicks() > 800 )
+		{
+
+			Attack();
+
+		}
+		else
+		{
+			defence();
+		}
 
 	}
 	else
 	{
 		defence();
 	}
-	
+
+
 }
 void Enemy::Update( std::shared_ptr< Object > obj1 )
 {
@@ -135,4 +168,9 @@ void Enemy::setPuck(std::shared_ptr<Puck> puck)
 
 void Enemy::collisionDetected(std::shared_ptr<Object> obj)
 {
+	if( obj->getType() == tPuck )
+	{
+		lastHit.stop();
+		lastHit.start();
+	}
 }

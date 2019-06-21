@@ -211,7 +211,6 @@ bool Collision::collisionCheck(std::shared_ptr< Trigger > tr, std::shared_ptr< O
 
 bool Collision::circleCollisionCheck(std::shared_ptr<Circle> circ1, std::shared_ptr<Circle> circ2)
 {
-	CollisionStat stat;
 
 	Vector2d n = *circ2->Pos() - *circ1->Pos();
 	
