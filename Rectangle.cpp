@@ -11,7 +11,7 @@ Rectangle::Rectangle()
 }
 
 Rectangle::Rectangle(int x, int y, int w, int h) 
-	: Shape(x, y, sBox)
+	: Shape( static_cast<float>(x), static_cast<float>(y), sBox)
 {
 	this->x = static_cast<float>(x);
 	this->x = static_cast<float>(y);
@@ -77,5 +77,12 @@ float Rectangle::LeftSide()
 float Rectangle::RightSide()
 {
 	return getX() + w;
+}
+
+SDL_Rect Rectangle::convertToSDLRect()
+{
+	SDL_Rect buf = { static_cast< int >( getX() ), static_cast<  int >( getY() ), static_cast< int >( w ), static_cast< int >( h ) };
+	return buf;
+
 }
 

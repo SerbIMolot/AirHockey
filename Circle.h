@@ -1,17 +1,18 @@
 #pragma once
-#include "stdafx.h"
+#include "Shape.h"
 
 class Circle : public Shape
 {
 
-	int radius;
+	float radius;
 
 public:
 	Circle( std::shared_ptr< Vector2d >, std::shared_ptr< Texture > );
 
 	Circle(int x, int y, std::shared_ptr< Texture > );
 
-	Circle(int x = 0, int y = 0, int radius = 3 );
+	Circle(float x, float y, float radius );
+	Circle(int x = 0, int y = 0, int radius = 0 );
 
 	Circle( std::shared_ptr< Vector2d >, int radius);
 
@@ -28,6 +29,8 @@ public:
 	std::shared_ptr< Vector2d > getVec();
 
 
+	void setRadius( float rad );
 	void setRadius( int rad );
-	int getRadius();
+
+	float getRadius();
 };

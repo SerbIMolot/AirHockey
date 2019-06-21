@@ -25,7 +25,7 @@ void TimerIns::Reset()
 
 	elapsedTicks = 0;
 
-	deltaTime = 0.0f;
+	deltaTime = 0;
 
 }
 

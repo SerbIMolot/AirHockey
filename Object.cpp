@@ -50,7 +50,7 @@ Object::Object(float x, float y, std::shared_ptr<Texture> textr, Type type , cSh
 	else {
 
 
-		collisionShape = std::make_shared< Circle >(x, y, (textr->getWidth() / 2));
+		collisionShape = std::make_shared< Circle >(x, y, static_cast< float >(textr->getWidth() / 2)) ;
 		setSkin(textr, type);
 	}
 }
@@ -236,6 +236,12 @@ std::shared_ptr<Vector2d> Object::Pos()
 
 
 void Object::Pos(int x, int y)
+{
+	position->setX( static_cast< float >( x ) );
+	position->setY( static_cast< float >( x ) );
+}
+
+void Object::Pos(float x, float y)
 {
 	position->setX( x );
 	position->setY( y );

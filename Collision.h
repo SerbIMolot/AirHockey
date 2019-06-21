@@ -6,6 +6,7 @@ class Collision
 
 	std::map< std::shared_ptr< Object >, std::shared_ptr< Object > > collidedObjects;
 
+
 	int numSimulationUpdates;
 
 	float tSimulationElapsTime;
@@ -25,6 +26,8 @@ public:
 	bool collisionCheck( std::shared_ptr< Object > obj1, std::shared_ptr< Object > obj2 );
 
 	bool collisionCheck( std::shared_ptr< Trigger > tr, std::shared_ptr< Object > obj );
+
+	bool collisionCheck(std::shared_ptr< Button > button, std::shared_ptr< Object > obj );
 
 	bool circleCollisionCheck( std::shared_ptr< Circle > circ1, std::shared_ptr< Circle > circ2 );
 
@@ -46,5 +49,7 @@ public:
 
 
 	void dynamicColisionRes();
+
+	
 };
 

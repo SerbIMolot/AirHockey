@@ -32,7 +32,7 @@ void Mouse::releaseObj()
 
 void Mouse::UpdateStats( int x, int y, bool isReleased, int button )
 {
-	updatePosition(x, y);
+	updatePosition( static_cast< float >( x ) , static_cast< float >( y ) );
 
 	if ( isReleased == false && button == SDL_BUTTON_LEFT )
 	{
@@ -77,10 +77,15 @@ void Mouse::Draw()
 void Mouse::collisionDetected( std::shared_ptr < Object > obj )
 {
 
-	if( obj->getType() == tPusher )
+	if( obj->getType() == tPusher && LMBHold == true )
 	{
 		grabObj( obj );
 	}
+}
+
+bool Mouse::isLMBHold()
+{
+	return LMBHold;
 }
 
 

@@ -21,16 +21,17 @@ void Collision::addObject( std::shared_ptr< Object > obj )
 
 void Collision::addCollidedObject(  std::shared_ptr< Object > obj1, std::shared_ptr< Object > obj2 )
 {
-	//if ( collidedObjects.count( obj1 ) == 0 && collidedObjects.count( obj2 ) == 0
-	//	&& obj1->getType() != tMouse && obj2->getType() != tMouse )
-	//{
+	if ( collidedObjects.count( obj1 ) == 0 && collidedObjects.count( obj2 ) == 0 
+		 && obj1->getType() != tWall && obj2->getType() != tWall )
+	{
+
 		collidedObjects[obj1] = obj2;
 
 		obj1->collisionDetected( obj2 );
 
 		obj2->collisionDetected( obj1 );
 
-	//}
+	}
 	
 }
 
@@ -48,7 +49,15 @@ void Collision::Update()
 				TriggersManager::Instance()->collisionDetected( obj1 );
 			}
 		}
-		//std::cout << "Collision " << obj1->Pos() << std::endl;
+			
+		//if ( collisionCheck( AirHockey::startButton, obj1 ) && AirHockey::startButton->isPressed() == false && obj1->getType() == tMouse )
+		//	{
+		//	
+		//		AirHockey::startButton->collisionDetected( obj1 );
+		//
+		//		
+		//	}
+		////std::cout << "Collision " << obj1->Pos() << std::endl;
 
 		for( auto obj2 : Objects )
 		{
@@ -193,6 +202,24 @@ bool Collision::collisionCheck( std::shared_ptr<Object> obj1, std::shared_ptr<Ob
 
 }
 
+bool Collision::collisionCheck(std::shared_ptr< Button > button, std::shared_ptr< Object > obj)
+{
+
+	for (auto sh1 : obj->getColShape()->getShapes())
+	{
+
+		if (sh1->getType() == sPoint)
+		{
+
+			return pointRectCollisionCheck( sh1, button->getRectangle() );
+
+		}
+
+	}
+
+	return false;
+}
+
 bool Collision::collisionCheck(std::shared_ptr< Trigger > tr, std::shared_ptr< Object > obj)
 {
 
@@ -253,16 +280,36 @@ bool Collision::collisionCheck(std::shared_ptr< Trigger > tr, std::shared_ptr< O
 
 bool Collision::circleCollisionCheck(std::shared_ptr<Circle> circ1, std::shared_ptr<Circle> circ2)
 {
-	float totalDistanceSquared = circ1->getRadius() + circ2->getRadius();
+	CollisionStat stat;
 
-	totalDistanceSquared = totalDistanceSquared * totalDistanceSquared;
+	Vector2d n = *circ2->Pos() - *circ1->Pos();
+	
+	float radiusSqr = circ1->getRadius() + circ2->getRadius();
+	radiusSqr *= radiusSqr;
 
-	if ( fabs( distanceSquared( circ1->Pos(), circ2->Pos() ) ) <= totalDistanceSquared )
+	if ( n.lengthSqr() <= radiusSqr )
+	{
+		return true;
+	}
+	return false;
+
+
+	/*
+	float radiusSquared = circ1->getRadius() + circ2->getRadius();
+
+	radiusSquared = radiusSquared * radiusSquared;
+
+	float distanceSqrd = fabs( distanceSquared( circ1->Pos(), circ2->Pos() ) );
+
+
+	if ( distanceSqrd <= radiusSquared )
 	{
 		return true;
 	}
 
+
 	return false;
+	*/
 }
 
 bool Collision::RectCollisionCheck(std::shared_ptr<Rectangle> rect, std::shared_ptr<Rectangle> rect2)
@@ -328,8 +375,11 @@ bool Collision::circRectCollisionCheck(std::shared_ptr<Circle> circ, std::shared
 	// Find the closest point to the circle within the rectangle
 //	float closestX = clamp(circ->getX(), rect->LeftSide(), rect->RightSide() );
 //	float closestY = clamp(circ->getY(), rect->topSide(), rect->BottomSide() );
+	Vector2d normal = *circ->Pos() - *rect->Pos();
 	Vector2d closestP = Vector2d( clamp( circ->getX(), rect->LeftSide(), rect->RightSide() ),
 								  clamp( circ->getY(), rect->topSide(), rect->BottomSide() ) );
+
+	
 
 	float Nea3restX = std::max(rect->getX(), std::min(circ->Pos()->getX(), rect->getX() + rect->w));
 	float N3earestY = std::max(rect->getY(), std::min(circ->Pos()->getY(), rect->getY() + rect->h));
@@ -422,7 +472,7 @@ float Collision::circRectOverlap(std::shared_ptr<Circle> circ, std::shared_ptr<R
 		std::cout << "OVERLAP" << penetrationDepth << std::endl;
 		std::cout << "dist" << dist << std::endl;
 	}
-	return penetrationVector.magnitude();
+	return penetrationDepth * 1.1f;
 
 	//float dist = distance( vec1, vec2 );
 	//float nx = (vec1->getX() - vec2->getX()) / dist;
@@ -505,9 +555,10 @@ void Collision::staticColisionRes()
 
 	float overlapMultp = 0.5f;
 	float overlap = 0;
-
+	
 	for ( auto obj : collidedObjects )
-	{ 
+	{	
+		std::shared_ptr< Vector2d > dist = std::make_shared< Vector2d >( ( obj.first->Pos()->getX() - obj.second->Pos()->getX() ), ( obj.first->Pos()->getY() - obj.second->Pos()->getY() ));
 		float pDistance = distance( obj.first->Pos(), obj.second->Pos() );
 
 		if ( obj.first->isMovable() == true || obj.second->isMovable() == true )
@@ -526,6 +577,11 @@ void Collision::staticColisionRes()
 		if ( obj.first->getColShape()->getCircle() != nullptr && obj.second->getColShape()->getRectangle() != nullptr )
 		{
 			std::cout << "CERCLE RECT" << std::endl;
+			float NearestX = std::max(obj.second->getColShape()->getRectangle()->getX(), std::min(obj.first->getColShape()->getCircle()->Pos()->getX(), obj.second->getColShape()->getRectangle()->getX() + obj.second->getColShape()->getRectangle()->w ));
+			float NearestY = std::max(obj.second->getColShape()->getRectangle()->getY(), std::min(obj.first->getColShape()->getCircle()->Pos()->getY(), obj.second->getColShape()->getRectangle()->getY() + obj.second->getColShape()->getRectangle()->h ));
+			dist = std::make_shared< Vector2d >( obj.first->getColShape()->getCircle()->getRadius() -  NearestX, obj.first->getColShape()->getCircle()->getRadius() - NearestY);
+			pDistance = distance(obj.first->Pos(), dist);
+			//overlap = overlapMultp * circRectOverlap(obj.second->getColShape()->getCircle(), obj.first->getColShape()->getRectangle());
 			overlap = overlapMultp * circRectOverlap( obj.first->getColShape()->getCircle(), obj.second->getColShape()->getRectangle() );
 
 		}
@@ -533,6 +589,10 @@ void Collision::staticColisionRes()
 		if ( obj.first->getColShape()->getRectangle() != nullptr && obj.second->getColShape()->getCircle() != nullptr )
 		{
 			std::cout << "RECT CIRCLE" << std::endl;
+			float NearestX = std::max(obj.first->getColShape()->getRectangle()->getX(), std::min(obj.second->getColShape()->getCircle()->Pos()->getX(), obj.first->getColShape()->getRectangle()->getX() + obj.first->getColShape()->getRectangle()->w ) );
+			float NearestY = std::max(obj.first->getColShape()->getRectangle()->getY(), std::min(obj.second->getColShape()->getCircle()->Pos()->getY(), obj.first->getColShape()->getRectangle()->getY() + obj.first->getColShape()->getRectangle()->h ) );
+			dist = std::make_shared< Vector2d >( obj.second->getColShape()->getCircle()->getRadius() - NearestX, obj.second->getColShape()->getCircle()->getRadius() - NearestY);
+			pDistance = distance( obj.second->Pos(),  dist );
 			overlap = overlapMultp * circRectOverlap( obj.second->getColShape()->getCircle(), obj.first->getColShape()->getRectangle() );
 
 		}
@@ -558,17 +618,24 @@ void Collision::staticColisionRes()
 		//		continue;
 		//	
 		//}
+
+
+			
 		if ( obj.first->isMovable() == true )
 		{ 
-			obj.first->Pos()->addX( ( overlap * ( obj.first->Pos()->getX() - obj.second->Pos()->getX() ) / pDistance ) );
-			obj.first->Pos()->addY( ( overlap * ( obj.first->Pos()->getY() - obj.second->Pos()->getY() ) / pDistance ) );
+			obj.first->Pos()->addX( -( overlap * dist->getX() / pDistance ) );
+			obj.first->Pos()->addY( -( overlap * dist->getY() / pDistance ) );
+		}
+		else
+		{
+
 		}
 
 
 		if ( obj.second->isMovable() == true )
 		{
-			obj.second->Pos()->addX( -(overlap * (obj.first->Pos()->getX() - obj.second->Pos()->getX() ) ) / pDistance );
-			obj.second->Pos()->addY( -(overlap * (obj.first->Pos()->getY() - obj.second->Pos()->getY() ) ) / pDistance );
+			obj.second->Pos()->addX( ( overlap * dist->getX() ) / pDistance );
+			obj.second->Pos()->addY( ( overlap * dist->getY() ) / pDistance );
 		}
 		
 		/*
@@ -599,23 +666,93 @@ void Collision::dynamicColisionRes()
 {
 	for (auto obj : collidedObjects)
 	{
-		float fDistance = distance( obj.first->Pos(), obj.second->Pos() );
+
+		float fDistance = 0;
+		std::shared_ptr< Vector2d > dist = nullptr;
+		Vector2d normal = Vector2d();
+		if ( obj.first->getColShape()->getRectangle() != nullptr && obj.second->getColShape()->getCircle() != nullptr )
+		{
+			
+			float NearestX = std::max(obj.first->getColShape()->getRectangle()->getX(), std::min(obj.second->getColShape()->getCircle()->getX(), obj.first->getColShape()->getRectangle()->getX() + obj.first->getColShape()->getRectangle()->w));
+			float NearestY = std::max(obj.first->getColShape()->getRectangle()->getY(), std::min(obj.second->getColShape()->getCircle()->getY(), obj.first->getColShape()->getRectangle()->getY() + obj.first->getColShape()->getRectangle()->h));
+			
+			dist = std::make_shared< Vector2d >(NearestX, NearestY);
+			
+			fDistance = distance( dist, obj.second->Pos() );
+
+
+			normal = *obj.second->Pos() - *dist;
+			
+			normal /= fDistance;
+		}
+
+		if (obj.second->getColShape()->getRectangle() != nullptr && obj.first->getColShape()->getCircle() != nullptr)
+		{
+			std::shared_ptr< Vector2d > dist = nullptr;
+			float NearestX = std::max(obj.second->getColShape()->getRectangle()->getX(), std::min(obj.first->getColShape()->getCircle()->Pos()->getX(), obj.second->getColShape()->getRectangle()->getX() + obj.second->getColShape()->getRectangle()->w));
+			float NearestY = std::max(obj.second->getColShape()->getRectangle()->getY(), std::min(obj.first->getColShape()->getCircle()->Pos()->getY(), obj.second->getColShape()->getRectangle()->getY() + obj.second->getColShape()->getRectangle()->h));
+			
+			dist = std::make_shared< Vector2d >(NearestX, NearestY);
+			
+			fDistance = distance(obj.first->Pos(), dist);
+
+			//normal = ( *obj.first->Pos() - *dist );
+			normal = (*dist - *obj.first->Pos() );
+
+
+			normal /= fDistance;
+
+		}
+
+		if ( obj.first->getColShape()->getCircle() != nullptr && obj.second->getColShape()->getCircle() != nullptr)
+		{
+			fDistance = distance(obj.first->Pos(), obj.second->Pos());
+			
+			normal = *obj.second->Pos() - *obj.first->Pos();
+
+			normal /= fDistance;
+
+		//	Vector2d tang = normal;
+
+		//	tang.rightHNormal();
+
+			// Dot Product Tangent
+			//float dpTan1 = dotProduct( obj.first->Velocity()->getX(), obj.first->Velocity()->getY(), tx, ty );
+			//float dpTan2 = dotProduct( obj.second->Velocity()->getX(), obj.second->Velocity()->getY(), tx, ty );
+
+
+		}
+
 		
 		// Normal
-		float nx = (obj.second->Pos()->getX() - obj.first->Pos()->getX()) / fDistance;
-		float ny = (obj.second->Pos()->getY() - obj.first->Pos()->getY()) / fDistance;
+		//float nx = (obj.second->Pos()->getX() - obj.first->Pos()->getX()) / fDistance;
+		//float ny = (obj.second->Pos()->getY() - obj.first->Pos()->getY()) / fDistance;
+
+		
 
 		// Tangent
-		float tx = -ny;
-		float ty = nx;
+		//float tx = -ny;
+		//float ty = nx;
+
+		Vector2d tang = normal;
+
+		tang.rightHNormal();
 
 		// Dot Product Tangent
-		float dpTan1 = dotProduct( obj.first->Velocity()->getX(), obj.first->Velocity()->getY(), tx, ty );
-		float dpTan2 = dotProduct( obj.second->Velocity()->getX(), obj.second->Velocity()->getY(), tx, ty );
+		//float dpTan1 = dotProduct( obj.first->Velocity()->getX(), obj.first->Velocity()->getY(), tx, ty );
+		//float dpTan2 = dotProduct( obj.second->Velocity()->getX(), obj.second->Velocity()->getY(), tx, ty );
+
+		//float dpTan1 = dotProduct( );
+		float dpTan1 = dotProduct(*obj.first->Velocity(), tang);
+
+		float dpTan2 = dotProduct(*obj.second->Velocity(), tang);
 
 		// Dot Product Normal
-		float dpNorm1 = dotProduct( obj.first->Velocity()->getX(), obj.first->Velocity()->getY(), nx, ny );
-		float dpNorm2 = dotProduct( obj.second->Velocity()->getX(), obj.second->Velocity()->getY(), nx , ny );
+		//float dpNorm1 = dotProduct( obj.first->Velocity()->getX(), obj.first->Velocity()->getY(), nx, ny );
+		//float dpNorm2 = dotProduct( obj.second->Velocity()->getX(), obj.second->Velocity()->getY(), nx , ny );
+
+		float dpNorm1 = dotProduct( *obj.first->Velocity(), normal );
+		float dpNorm2 = dotProduct( *obj.second->Velocity(), normal );
 
 		// Conservation of momentum in 1D
 		float m1 = (dpNorm1 * (obj.first->getMass() - obj.second->getMass() ) + 2.0f * obj.second->getMass() * dpNorm2) / (obj.first->getMass() + obj.second->getMass());
@@ -624,8 +761,9 @@ void Collision::dynamicColisionRes()
 		// Update velocities
 		if ( obj.first->getType() != tPusher && obj.first->isMovable() == true )
 		{ 
-			obj.first->Velocity()->setX(tx * dpTan1 + nx * m1);
-			obj.first->Velocity()->setY(ty * dpTan1 + ny * m1);
+			//obj.first->Velocity()->setX(tx * dpTan1 + nx * m1);
+			//obj.first->Velocity()->setY(ty * dpTan1 + ny * m1);
+			obj.first->Velocity( *( tang * dpTan1 ) + ( normal * m1 ) );
 		}
 		else
 		{
@@ -635,8 +773,9 @@ void Collision::dynamicColisionRes()
 
 		if ( obj.second->getType() != tPusher && obj.second->isMovable() == true )
 		{
-			obj.second->Velocity()->setX(tx * dpTan2 + nx * m2);
-			obj.second->Velocity()->setY(ty * dpTan2 + ny * m2);
+			//obj.second->Velocity()->setX(tx * dpTan2 + nx * m2);
+			//obj.second->Velocity()->setY(ty * dpTan2 + ny * m2);
+			obj.first->Velocity(*(tang * dpTan2) + (normal * m2));
 	
 		}
 		else

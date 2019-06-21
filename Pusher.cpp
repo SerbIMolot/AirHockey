@@ -12,7 +12,7 @@ Pusher::Pusher() : Entity()
 	setSkin(TextureManager::getTexture("Rocket.png"), tPusher);
 	Pos()->setX( SCREEN_HEIGHT / 4 );
 	Pos()->setY( SCREEN_HEIGHT / 2 );
-	setMass(0);
+	setMass(20);
 
 	colShape->addShape( Pos(), skin, sCircle );
 	std::cout << "PL S" << std::endl;
@@ -45,17 +45,17 @@ void Pusher::Update(std::shared_ptr<Object> obj)
 		colShape->Update( Pos() );
 		std::cout << "Pusher" << std::endl;
 
-		if (Pos()->getX() - getColShape()->getCircle()->getRadius() <= 0)
+		if (Pos()->getX() - getColShape()->getCircle()->getRadius() <= 15 )
 		{
 		
-			Pos()->setX( getColShape()->getCircle()->getRadius() );
+			Pos()->setX( getColShape()->getCircle()->getRadius() + 15 );
 		
 		}
 
-		if (Pos()->getY() - getColShape()->getCircle()->getRadius() <= 0)
+		if (Pos()->getY() - getColShape()->getCircle()->getRadius() <= 15)
 		{
 
-			Pos()->setY( getColShape()->getCircle()->getRadius() );
+			Pos()->setY( getColShape()->getCircle()->getRadius() + 15 );
 		
 		}
 
@@ -65,10 +65,10 @@ void Pusher::Update(std::shared_ptr<Object> obj)
 			Pos()->setX((SCREEN_WIDTH / 2) - getColShape()->getCircle()->getRadius() );
 		
 		}
-		if (Pos()->getY() + getColShape()->getCircle()->getRadius() >= SCREEN_HEIGHT )
+		if (Pos()->getY() + getColShape()->getCircle()->getRadius() >= SCREEN_HEIGHT-15 )
 		{
 
-			Pos()->setY( (SCREEN_HEIGHT) - getColShape()->getCircle()->getRadius() );
+			Pos()->setY( (SCREEN_HEIGHT) - getColShape()->getCircle()->getRadius() - 15 );
 		
 		}
 		std::cout << "Pusher" << std::endl;

@@ -20,7 +20,7 @@ void CollisionShape::addShape(std::shared_ptr<Vector2d> vec)
 
 void CollisionShape::addShape(int x, int y)
 {
-	std::shared_ptr< Shape > point = std::make_shared< Shape >( x, y, sPoint );
+	std::shared_ptr< Shape > point = std::make_shared< Shape >( static_cast< float >( x ), static_cast< float >( y ), sPoint );
 	colShape.push_back( point );
 }
 

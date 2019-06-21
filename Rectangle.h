@@ -28,7 +28,7 @@ public:
 	float RightSide();
 
 
-
+	SDL_Rect convertToSDLRect();
 
 
 };

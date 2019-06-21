@@ -1,7 +1,7 @@
 #pragma once
 
 const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 460;
+const int SCREEN_HEIGHT = 480;
 
 class SDL_wrapper
 {
@@ -14,7 +14,7 @@ public:
 
 	static SDL_DisplayMode displayMode;
 
-
+	static void drawRect(std::shared_ptr<Rectangle> rect, const SDL_Color & color);
 
 
 	
@@ -22,6 +22,7 @@ public:
 	bool Init();
 	//load media
 	bool loadMedia();
+	
 	//Frees media and shots down sdl
 	void close();
 

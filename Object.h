@@ -157,6 +157,8 @@ public:
 	void Pos(std::shared_ptr< Vector2d > vec);
 	void Pos(int x, int y);
 
+	void Pos(float x, float y);
+
 	void Velocity(std::shared_ptr<Vector2d> vec);
 	void Velocity(float x, float y);
 

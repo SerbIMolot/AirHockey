@@ -30,7 +30,10 @@ public:
 	float getY() const;
 
 	void setX(float x);
+	void setX(int x);
+
 	void setY(float y);
+	void setY(int y);
 
 
 	float magnitude();
@@ -80,11 +83,15 @@ float distance( std::shared_ptr< Vector2d > vec1, std::shared_ptr < Vector2d > v
 
 float distance( int x1, int y1, int x2, int y2 );
 
+float distance( float x1, float y1, float x2, float y2 );
+
 float distanceSquared( std::shared_ptr< Vector2d > vec1, std::shared_ptr < Vector2d > vec2 );
 
 float distanceSquared( Vector2d& vec1, Vector2d& vec2 );
 
 float distanceSquared( int x1, int y1, int x2, int y2 );
+
+float distanceSquared(float x1, float y1, float x2, float y2);
 
 float dotProduct( Vector2d& vec1, Vector2d& vec2 );
 

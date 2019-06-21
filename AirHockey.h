@@ -21,7 +21,7 @@ public:
 	std::shared_ptr< Pusher > p1;
 	std::shared_ptr< Puck > puck;
 	std::shared_ptr< Enemy > enemy;
-
+	//static std::shared_ptr<Button > startButton;
 	std::shared_ptr< Board > board;
 
 	bool mouseHold;

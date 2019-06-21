@@ -1,4 +1,4 @@
-#include "Circle.h"
+
 #include "stdafx.h"
 
 Circle::Circle(std::shared_ptr<Vector2d> vec, std::shared_ptr<Texture> textr )
@@ -10,15 +10,22 @@ Circle::Circle(std::shared_ptr<Vector2d> vec, std::shared_ptr<Texture> textr )
 }
 
 Circle::Circle(int x, int y, std::shared_ptr<Texture> textr)
-	: Shape( x, y, sCircle )
+	: Shape( static_cast<float>( x ), static_cast<float>( y ), sCircle )
 {
 
 	setRadius( textr->getHeight() / 2 );
 
 }
 
+Circle::Circle(float x, float y, float radius)
+	: Shape( x, y, sCircle)
+{
+
+		setRadius(radius);
+}
+
 Circle::Circle(int x, int y, int radius)
-	: Shape( x, y, sCircle )
+	: Shape( static_cast< float >( x ), static_cast< float >( y ), sCircle )
 {
 
 	setRadius( radius );
@@ -53,12 +60,17 @@ std::shared_ptr<Vector2d> Circle::getVec()
 	return Pos();
 }
 
-void Circle::setRadius(int rad)
+void Circle::setRadius( float rad )
 {
 	radius = rad;
 }
 
-int Circle::getRadius()
+void Circle::setRadius( int rad )
+{
+	radius = static_cast< float >( rad );
+}
+
+float Circle::getRadius()
 {
 	return radius;
 }

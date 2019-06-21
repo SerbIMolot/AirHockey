@@ -76,7 +76,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(SolutionDir)\sdl\lib\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\sdl\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\User\source\repos\AirHockey2\sdl\addLib;$(SolutionDir)\sdl\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -99,17 +99,17 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -137,7 +137,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\MyGame\MyGame\sdl\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -150,9 +150,11 @@
   <ItemGroup>
     <ClInclude Include="AirHockey.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionShape.h" />
+    <ClInclude Include="CollisionStat.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EventHandle.h" />
@@ -164,8 +166,12 @@
     <ClInclude Include="Puck.h" />
     <ClInclude Include="Pusher.h" />
     <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="sdl\addLib\SDL_FontCache.h" />
+    <ClInclude Include="sdl\include\NFont.h" />
     <ClInclude Include="SDL_wrapper.h" />
     <ClInclude Include="Shape.h" />
+    <ClInclude Include="SoundEfx.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Texture.h" />
@@ -180,9 +186,11 @@
   <ItemGroup>
     <ClCompile Include="AirHockey.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionShape.cpp" />
+    <ClCompile Include="CollisionStat.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EventHandle.cpp" />
@@ -192,8 +200,12 @@
     <ClCompile Include="Puck.cpp" />
     <ClCompile Include="Pusher.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="sdl\addLib\SDL_FontCache.c" />
+    <ClCompile Include="sdl\include\NFont.cpp" />
     <ClCompile Include="SDL_wrapper.cpp" />
     <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="SoundEfx.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

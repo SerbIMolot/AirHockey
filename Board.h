@@ -14,6 +14,12 @@ class Board
 	std::shared_ptr< Object > playerGates;
 	std::shared_ptr< Object > aiGates;
 
+	std::unique_ptr< NFont > redFont;
+	std::unique_ptr< NFont > blueFont;
+	//NFont font;
+
+	//std::unique_ptr< FC_Font > fFont;
+	//FC_Font* fFont;
 public:
 
 	static int aiPoints;

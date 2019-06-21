@@ -22,5 +22,7 @@ public:
 
 	void collisionDetected( std::shared_ptr < Object > obj );
 
+	bool isLMBHold();
+
 };
 

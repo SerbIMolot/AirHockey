@@ -58,7 +58,7 @@ Wall::Wall(std::shared_ptr< Vector2d > vec, std::shared_ptr< Texture > text )
 	
 	setSkin( text, tWall );
 	Pos( vec );
-	setMass(100);
+	setMass(0);
 	setSpeed(0);
 
 	//move add shape to Wall methods

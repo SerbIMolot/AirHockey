@@ -15,7 +15,47 @@ Texture::~Texture()
 	free();
 }
 
-bool Texture::loadFromFile( std::string path )
+bool Texture::loadFromFile(std::string path )
+{
+	//Delete pre existing texture
+	free();
+
+	SDL_Texture* newTexture = NULL;
+
+	//Load image at path
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	if (loadedSurface == NULL)
+	{
+		printf("Unable to load image %s! SDL_Image error: %s\n", path.c_str(), IMG_GetError());
+	}
+	else
+	{
+
+		newTexture =  SDL_CreateTextureFromSurface(SDL_wrapper::gRenderer, loadedSurface);
+
+
+		if (newTexture == NULL)
+		{
+			printf("Unable to create texture from %s! SDL Error; %s\n", path.c_str(), SDL_GetError());
+
+		}
+		else
+		{
+			mWidth = loadedSurface->w;
+			mHeight = loadedSurface->h;
+
+		}
+
+		SDL_FreeSurface(loadedSurface);
+
+	}
+
+	mTexture.reset( newTexture );
+
+	return mTexture != NULL;
+}
+
+bool Texture::loadFromFile( std::string path, SDL_Color colorKey )
 {
 	//Delete pre existing texture
 	free();
@@ -29,7 +69,12 @@ bool Texture::loadFromFile( std::string path )
 		printf( "Unable to load image %s! SDL_Image error: %s\n", path.c_str(), IMG_GetError() );
 	} else
 	{
-		SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
+
+		if ( SDL_SetColorKey( loadedSurface, SDL_TRUE, 
+							  SDL_MapRGB( loadedSurface->format, colorKey.r, colorKey.g, colorKey.b ) < 0 ) )
+		{
+			printf("Unable to ser colorKey for %s! SDL Error error: %s\n", path.c_str(), SDL_GetError());
+		}
 
 		newTexture = SDL_CreateTextureFromSurface( SDL_wrapper::gRenderer, loadedSurface );
 
@@ -88,7 +133,7 @@ bool Texture::loadFromText(std::string textureText, SDL_Color textColor)
 	}
 
 	//return success
-	return mTexture != NULL;
+	return mTexture != nullptr;
 }
 
 void Texture::free()
@@ -118,6 +163,24 @@ void Texture::render( int x, int y, SDL_Rect * clip, double angle, SDL_Point * c
 	
 	//Render to screen
 	SDL_RenderCopyEx( SDL_wrapper::gRenderer, mTexture.get() , clip, &renderQuad, angle, center, flip );
+
+}
+
+void Texture::render(float x, float y, SDL_Rect * clip, double angle, SDL_Point * center, SDL_RendererFlip flip)
+{
+	//Set rendering space and render to screen
+	SDL_Rect renderQuad = { static_cast< int >( x ), static_cast< int >( y ), static_cast< int >( mWidth ), static_cast< int >( mHeight ) };
+
+	//Set clip rendering dimensions
+	if (clip != nullptr)
+	{
+		renderQuad.w = clip->w;
+		renderQuad.h = clip->h;
+
+	}
+
+	//Render to screen
+	SDL_RenderCopyEx(SDL_wrapper::gRenderer, mTexture.get(), clip, &renderQuad, angle, center, flip);
 
 }
 

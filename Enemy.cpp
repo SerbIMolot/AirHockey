@@ -15,7 +15,7 @@ Enemy::Enemy()
 
 	getColShape()->addShape( Pos(), getSkin(), sCircle );
 	std::cout << Pos() << std::endl;
-	setMass(0);
+	setMass(20);
 	maxMovementSpeed = 300;
 	eSpeed = 200.0f;
 	targetPos = std::make_shared< Vector2d >();
@@ -30,7 +30,7 @@ Enemy::~Enemy()
 
 bool Enemy::puckInCorner()
 {
-	if ( puck->Pos()->getX() > SCREEN_WIDTH / 2 + std::static_pointer_cast< Circle >( puck->getShape() )->getRadius() )
+	if ( puck->Pos()->getX() > SCREEN_WIDTH / 2 + 20 )
 	{
 		return true;
 	}
@@ -39,7 +39,7 @@ bool Enemy::puckInCorner()
 
 void Enemy::moveTo(float x1, float y1, float x2, float y2)
 {
-	float speed = (rand() % 20);
+	float speed = static_cast< float >(rand() % 15);
 
 	float dist = distance( x1, y1 , x2, y2 );
 	float dX = x2 - x1;
@@ -56,7 +56,7 @@ void Enemy::moveTo(float x1, float y1, float x2, float y2)
 void Enemy::Attack()
 {
 
-	moveTo(Pos()->getX(), Pos()->getY(), puck->Pos()->getX(), puck->Pos()->getY() );
+	moveTo( Pos()->getX(), Pos()->getY(), puck->Pos()->getX(), puck->Pos()->getY() );
 
 }
 
@@ -65,18 +65,20 @@ void Enemy::defence()
 	std::uniform_real_distribution< float > offsetEn(-1, 1);
 	float offset = offsetEn( generator );
 
-	moveTo( Pos()->getX() , Pos()->getY(), SCREEN_WIDTH / 2 + SCREEN_WIDTH / 2, puck->Pos()->getY() + offset );
+	moveTo( Pos()->getX() , Pos()->getY(), SCREEN_WIDTH - 150 , puck->Pos()->getY() + offset );
 	
 	
 }
 void Enemy::makeDecision()
 {
-	if ( puckInCorner() && puck->Pos()->getX() < Pos()->getX() )
+	if ( puckInCorner() )
 	{
+		std::cout << "ATTACK" << std::endl;
 		Attack();
 	}
 	else
 	{
+		std::cout << "DEFENCE" << std::endl;
 		defence();
 	}
 	
@@ -92,27 +94,27 @@ void Enemy::Update( std::shared_ptr< Object > obj1 )
 		Pos()->setX((SCREEN_WIDTH / 2) + getColShape()->getCircle()->getRadius());
 
 	}
-	if (Pos()->getY() - getColShape()->getCircle()->getRadius() <= 0)
+	if (Pos()->getY() - getColShape()->getCircle()->getRadius() <= 15)
 	{
 
-		Pos()->setY(getColShape()->getCircle()->getRadius());
+		Pos()->setY(getColShape()->getCircle()->getRadius() + 15);
 
 	}
 
-	if (Pos()->getX() + getColShape()->getCircle()->getRadius() >= SCREEN_WIDTH)
+	if (Pos()->getX() + getColShape()->getCircle()->getRadius() >= SCREEN_WIDTH - 15)
 	{
 		
-		Pos()->setX( (SCREEN_WIDTH) - getColShape()->getCircle()->getRadius());
+		Pos()->setX( (SCREEN_WIDTH) - getColShape()->getCircle()->getRadius() - 15);
 
 	}
-	if (Pos()->getY() + getColShape()->getCircle()->getRadius() >= SCREEN_HEIGHT)
+	if (Pos()->getY() + getColShape()->getCircle()->getRadius() >= SCREEN_HEIGHT - 15)
 	{
 
-		Pos()->setY((SCREEN_HEIGHT) - getColShape()->getCircle()->getRadius());
+		Pos()->setY((SCREEN_HEIGHT) - getColShape()->getCircle()->getRadius() - 15);
 
 	}
 
-	updatePosition();
+	//updatePosition();
 	getShape()->Update( Pos() );
 
 }

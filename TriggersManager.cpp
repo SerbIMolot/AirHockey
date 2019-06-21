@@ -12,8 +12,10 @@ TriggersManager::TriggersManager()
 
 TriggersManager::~TriggersManager()
 {
-	delete trmInstance;
 	trigers.clear();
+
+	delete trmInstance;
+	
 }
 
 TriggersManager* TriggersManager::Instance()
@@ -52,8 +54,8 @@ void TriggersManager::addTrigger(std::shared_ptr<Vector2d> vec, int w, int h, st
 
 void TriggersManager::Init()
 {
-	addTrigger( 0 , 180, 30, 277 , "AiGoal");
-	addTrigger( SCREEN_WIDTH - 30 , 180, 30, 277, "PlGoal" );
+	addTrigger( 0 , 169, 20, 138, "AiGoal");
+	addTrigger( SCREEN_WIDTH - 20 , 169, 20, 138, "PlGoal" );
 }
 
 void TriggersManager::collisionDetected( std::shared_ptr< Object > obj )
@@ -65,6 +67,9 @@ void TriggersManager::collisionDetected( std::shared_ptr< Object > obj )
 		if( strcmp( tr->getName().c_str() , "AiGoal" ) && tr->isTrigered() == true 
 			&& obj->getType() == tPuck )
 		{
+
+			SoundManager::getSound("goal.wav")->play();
+
 			Board::aiPoints += 1;
 			
 			for (int i = 0 ; i < 10; i++)
@@ -72,18 +77,32 @@ void TriggersManager::collisionDetected( std::shared_ptr< Object > obj )
 				std::cout << "AI GOAL score = " << i << std::endl;
 			}
 
+			tr->reset();
+
 			AirHockey::Instance()->GameReset();
+		
+			break;
 		}
 
 		if ( strcmp(tr->getName().c_str(), "PlGoal") && tr->isTrigered() == true 
 			&& obj->getType() == tPuck )
 		{
+
+			SoundManager::getSound("goal.wav")->play();
+
 			Board::playerPoints += 1;
+
 			for (int i = 0; i < 10; i++)
 			{
-				std::cout << "AI GOAL score = " << i << std::endl;
+				std::cout << "Player GOAL score = " << i << std::endl;
 			}
+
+
+			tr->reset();
+
 			AirHockey::Instance()->GameReset();
+
+			break;
 		}
 
 

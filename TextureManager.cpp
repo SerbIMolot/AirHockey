@@ -14,6 +14,8 @@ void TextureManager::loadTextures() {
 	addTexture("Data/wall.png");
 	addTexture("Data/plWall.png");
 	addTexture("Data/enWall.png");
+	addTexture("Data/enGate.png");
+	addTexture("Data/plGate.png");
 }
 
 
@@ -53,7 +55,7 @@ void TextureManager::addTexture(const char * path) {
 	
 	printf( "Texture : %s\n", fileName.c_str() );
 	Textures[fileName] = std::make_shared<Texture>();
-	Textures[fileName]->loadFromFile(path);
+ 	Textures[fileName]->loadFromFile(path);
 }
 
 void TextureManager::addText( std::string textureText, SDL_Color textColor, std::string name )
@@ -112,6 +114,7 @@ void TextureManager::Close(std::string fileName) {
 			break;
 		}
 	}
+
 }
 
 std::shared_ptr<Texture> TextureManager::getTexture(const char * fileName) {

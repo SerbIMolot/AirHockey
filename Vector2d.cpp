@@ -66,8 +66,17 @@ void Vector2d::setX(float x)
 	this->x = x;
 }
 
+void Vector2d::setX( int x )
+{
+	this->x = static_cast< float >( x );
+}
+
 void Vector2d::setY(float y) {
 	this->y = y;
+}
+
+void Vector2d::setY( int y ) {
+	this->y = static_cast< float >( y );
 }
 
 float Vector2d::magnitude() {
@@ -240,9 +249,20 @@ float distanceSquared( Vector2d& vec1, Vector2d& vec2 )
 
 float distance( int x1, int y1, int x2, int y2 )
 {
+	return static_cast< float >( sqrt( ( x1 - x2 ) * ( x1 - x2 ) + ( y1 - y2 ) * ( y1 - y2 ) ) );
+}
+
+float distance( float x1, float y1, float x2, float y2 )
+{
 	return sqrtf( ( x1 - x2 ) * ( x1 - x2 ) + ( y1 - y2 ) * ( y1 - y2 ) );
 }
+
 float distanceSquared( int x1, int y1, int x2, int y2 )
+{
+	return static_cast< float >( ( x1 - x2 ) * ( x1 - x2 ) + ( y1 - y2 ) * ( y1 - y2 ) );
+}
+
+float distanceSquared( float x1, float y1, float x2, float y2 )
 {
 	return ( x1 - x2 ) * ( x1 - x2 ) + ( y1 - y2 ) * ( y1 - y2 );
 }
@@ -259,7 +279,7 @@ float dotProduct( std::shared_ptr< Vector2d > vec1, std::shared_ptr< Vector2d > 
 
 float dotProduct(int x1, int y1, int x2, int y2)
 {
-	return x1 * x2 + y1 * y2;
+	return static_cast< float >( x1 * x2 + y1 * y2 );
 }
 
 float dotProduct( float x1, float y1, float x2, float y2)
