@@ -1,30 +1,81 @@
-﻿  Texture.cpp
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\memory(1997): error C2027: использование неопределенного типа "SDL_Texture"
-  c:\users\user\source\repos\airhockey2\sdl\include\sdl_render.h(128): note:  см. объявление "SDL_Texture"
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\memory(1996): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\memory(2238): note: выполняется компиляция ссылки на экземпляр шаблон функции "void std::default_delete<_Ty>::operator ()(_Ty *) noexcept const"
-          with
-          [
-              _Ty=SDL_Texture
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\memory(2047): note: выполняется компиляция ссылки на экземпляр шаблон класс "std::default_delete<_Ty>"
-          with
-          [
-              _Ty=SDL_Texture
-          ]
-  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\memory(2090): note: выполняется компиляция ссылки на экземпляр шаблон класс "std::_Unique_ptr_base<_Ty,_Dx>"
-          with
-          [
-              _Ty=SDL_Texture,
-              _Dx=std::default_delete<SDL_Texture>
-          ]
-  c:\users\user\source\repos\airhockey2\texture.h(36): note: выполняется компиляция ссылки на экземпляр шаблон класс "std::unique_ptr<SDL_Texture,std::default_delete<_Ty>>"
-          with
-          [
-              _Ty=SDL_Texture
-          ]
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\memory(1998): error C2338: can't delete an incomplete type
-c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.11.25503\include\memory(1999): warning C4150: удаление указателя на неполный тип "SDL_Texture"; деструктор не вызван
-  c:\users\user\source\repos\airhockey2\sdl\include\sdl_render.h(128): note:  см. объявление "SDL_Texture"
+﻿  stdafx.cpp
+  Wall.cpp
+  Vector2d.cpp
+  TriggersManager.cpp
+  Trigger.cpp
+  TimerIns.cpp
+  Timer.cpp
+  TextureManager.cpp
+  Texture.cpp
+  SoundManager.cpp
+  SoundEfx.cpp
+  Shape.cpp
+  SDL_wrapper.cpp
+  NFont.cpp
+  Rectangle.cpp
+  Pusher.cpp
+  Puck.cpp
   Object.cpp
+  Mouse.cpp
+  Line.cpp
+  EventHandle.cpp
   Создание кода...
+  Компиляция...
+  Entity.cpp
+  Enemy.cpp
+  CollisionStat.cpp
+  CollisionShape.cpp
+  Collision.cpp
+  Circle.cpp
+  Button.cpp
+  Board.cpp
+  AirHockey.cpp
+  Создание кода...
+  SDL_FontCache.c
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(234): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(561): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(562): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(598): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(615): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(616): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(617): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(618): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(620): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(632): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(634): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(638): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(641): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(644): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(646): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(650): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(653): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(703): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(704): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(705): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(706): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(1665): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(1659): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(1942): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(1955): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(1987): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2018): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2049): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2080): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2121): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2109): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2150): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2126): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2167): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2155): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2184): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2172): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2213): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2189): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2218): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2251): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2655): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2656): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2646): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2707): warning C4244: функция: преобразование "int" в "float", возможна потеря данных
+c:\users\user\source\repos\airhockey2\sdl\addlib\sdl_fontcache.c(2748): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  AirHockey.vcxproj -> C:\Users\User\source\repos\AirHockey2\x64\Debug\AirHockey.exe

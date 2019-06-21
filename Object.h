@@ -19,16 +19,15 @@ enum Type {
 
 class Object {
 private:
-	int id;
+
 	Type type;
+
 	std::shared_ptr< Vector2d > previousPos;
 	std::shared_ptr< Vector2d > position;
 	std::shared_ptr< Vector2d > velocity;
 	std::shared_ptr< Vector2d > acceleration;
 
 	float speed;
-
-	std::shared_ptr< Shape > collisionShape;
 
 	std::shared_ptr< CollisionShape > colShape;
 
@@ -43,45 +42,18 @@ private:
 
 	std::shared_ptr<Texture> skin;
 
-	std::shared_ptr< Circle > collisionCircle;
 
 	bool movable;
 
 
-	float phSimTimeRemein;
-
-	Rectangle bounds;
 
 
 public:
-	float maxA;
-	/*
-	void Object::updatePosition() 
-	{
-	
-		updateVelocity();
-		
-		Pos( Pos() + getVelocity() );
-	
-	}
 
-	void Object::updateVelocity() {
-		updateAccel();
-		xVel = xVel + xAccel;
-	}
 
-	void Object::updateAccel() {
-		xAccel = ( currentMouseX - prevMouseX ) / someConstant; //or whatever formula works best
-	}
-	*/
 
 
 	Object();
-
-	Object(float x, float y, float h, float w, Type type = tWall, cShape shape = sBox);
-
-	//Object(float x, float y, float h, float w, Type type = tWall, cShape shape = sBox);
-
 
 	Object( float x, float y, std::shared_ptr<Texture> texture, Type type, cShape shape );
 
@@ -109,10 +81,6 @@ public:
 
 	float getMass();
 
-	std::shared_ptr< Shape > getShape();
-
-	//std::shared_ptr< Vector2d > Pos(SPACE space = world);
-
 	void Active(bool active);
 	bool Active();
 
@@ -130,7 +98,7 @@ public:
 	Type getType();
 
 	void setType(Type type);
-	void UpdateCircle();
+
 
 	void Rotation(float r);
 
@@ -147,7 +115,6 @@ public:
 	std::shared_ptr<Vector2d> Acceleration();
 	std::shared_ptr<CollisionShape> getColShape();
 
-	float getSimTimeRem();
 
 	bool isMovable();
 
@@ -165,7 +132,6 @@ public:
 	void Acceleration(std::shared_ptr<Vector2d> vec);
 	void Acceleration(float x, float y);
 
-	void setSimTimeRem( float t );
 
 	void setMovable(bool mov);
 

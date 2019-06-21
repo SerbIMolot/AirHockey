@@ -103,17 +103,7 @@ float dotProduct( float x1, float y1, float x2, float y2 );
 
 std::shared_ptr< Vector2d > projection( std::shared_ptr< Vector2d > vec1, std::shared_ptr< Vector2d > vec2 );
 
-//std::shared_ptr< Vector2d > closestPoint( std::shared_ptr< Vector2d > vec, std::shared_ptr< Line > line );
-//
-//std::shared_ptr< Vector2d > closestPoint( int x, int y, std::shared_ptr< Line > line );
-//
-//std::shared_ptr< Vector2d > closestPoint( std::shared_ptr< Vector2d > vec, std::shared_ptr< Rectangle > rect );
-//
-//std::shared_ptr< Vector2d > closestPoint( int x, int y, std::shared_ptr< Rectangle > rect );
-
 float clamp( float n, float lower, float upper );
-
-float momentumConservation();
 
 Vector2d RotateVector(Vector2d & vec, float angle);
 

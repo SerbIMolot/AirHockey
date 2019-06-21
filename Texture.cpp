@@ -17,6 +17,7 @@ Texture::~Texture()
 
 bool Texture::loadFromFile(std::string path )
 {
+	
 	//Delete pre existing texture
 	free();
 
@@ -50,7 +51,7 @@ bool Texture::loadFromFile(std::string path )
 
 	}
 
-	mTexture.reset( newTexture );
+	mTexture = newTexture;
 
 	return mTexture != NULL;
 }
@@ -95,7 +96,7 @@ bool Texture::loadFromFile( std::string path, SDL_Color colorKey )
 
 	}
 
-	mTexture.reset( newTexture );
+	mTexture = newTexture;
 
 	return mTexture != NULL;
 }
@@ -114,7 +115,6 @@ bool Texture::loadFromText(std::string textureText, SDL_Color textColor)
 	} 
 	else
 	{
-		mTexture.reset( SDL_CreateTextureFromSurface( SDL_wrapper::gRenderer, textSurface ) );
 	
 		if ( mTexture == NULL )
 		{
@@ -140,6 +140,7 @@ void Texture::free()
 {
 	if ( mTexture != NULL || mTexture != nullptr ) 
 	{
+		SDL_DestroyTexture( mTexture );
 		mTexture = NULL;
 		mWidth = 0;
 		mHeight = 0;
@@ -162,7 +163,7 @@ void Texture::render( int x, int y, SDL_Rect * clip, double angle, SDL_Point * c
 	}
 	
 	//Render to screen
-	SDL_RenderCopyEx( SDL_wrapper::gRenderer, mTexture.get() , clip, &renderQuad, angle, center, flip );
+	SDL_RenderCopyEx( SDL_wrapper::gRenderer, mTexture , clip, &renderQuad, angle, center, flip );
 
 }
 
@@ -180,7 +181,7 @@ void Texture::render(float x, float y, SDL_Rect * clip, double angle, SDL_Point 
 	}
 
 	//Render to screen
-	SDL_RenderCopyEx(SDL_wrapper::gRenderer, mTexture.get(), clip, &renderQuad, angle, center, flip);
+	SDL_RenderCopyEx(SDL_wrapper::gRenderer, mTexture, clip, &renderQuad, angle, center, flip);
 
 }
 
@@ -198,25 +199,25 @@ void Texture::render(std::shared_ptr< Vector2d > vec, SDL_Rect * clip, double an
 	}
 
 	//Render to screen
-	SDL_RenderCopyEx( SDL_wrapper::gRenderer, mTexture.get(), clip, &renderQuad, angle, center, flip);
+	SDL_RenderCopyEx( SDL_wrapper::gRenderer, mTexture, clip, &renderQuad, angle, center, flip);
 
 }
 
 void Texture::setColor( Uint8 red, Uint8 green, Uint8 blue )
 {
 	//Modulate texture
-	SDL_SetTextureColorMod( mTexture.get(), red, green, blue );
+	SDL_SetTextureColorMod( mTexture, red, green, blue );
 
 }
 
 void Texture::setBlendMode( SDL_BlendMode blending )
 {
-	SDL_SetTextureBlendMode( mTexture.get(), blending );
+	SDL_SetTextureBlendMode( mTexture, blending );
 }
 
 void Texture::setAlpha(Uint8 alpha)
 {
-	SDL_SetTextureAlphaMod( mTexture.get(), alpha );
+	SDL_SetTextureAlphaMod( mTexture, alpha );
 }
 
 int Texture::getWidth()

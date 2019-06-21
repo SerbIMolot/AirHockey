@@ -12,7 +12,7 @@ SoundManager::SoundManager()
 
 SoundManager::~SoundManager()
 {
-	Close("All");
+	Close("all");
 	delete tmInstance;
 }
 
@@ -44,7 +44,7 @@ void SoundManager::addSound(const char * path)
 
 	printf("Sound effect : %s\n", fileName.c_str());
 	Sounds[fileName] = std::make_shared< SoundEfx >( path );
-	//Sounds[fileName]->loadFromFile(path);
+	
 }
 
 SoundManager * SoundManager::Instance()
@@ -61,11 +61,13 @@ void SoundManager::Close(std::string fileName)
 {
 
 	if (fileName == "all") {
-		Sounds.clear();
+
+				Sounds.erase(fileName);
 	}
 
 	for ( auto s : Sounds ) {
 		if ( s.first == fileName ) {
+
 			Sounds.erase( fileName );
 			break;
 		}

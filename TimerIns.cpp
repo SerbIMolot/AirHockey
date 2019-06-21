@@ -1,4 +1,6 @@
-//#include "inc.h"
+
+
+#include "inc.h"
 #include "stdafx.h"
 
 

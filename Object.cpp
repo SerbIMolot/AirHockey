@@ -11,13 +11,13 @@ Object::Object()
 	acceleration = std::make_shared< Vector2d >(0, 0);
 	previousVel = std::make_shared< Vector2d >(0, 0);
 
-	collisionShape = std::make_shared< Shape >();
+
 	colShape = std::make_shared< CollisionShape >();
 	rotation = 0.0f;
 	active = false;
 	skin = nullptr;
 
-	collisionCircle = std::make_shared < Circle >();
+
 	type = tUndefined;
 
 	timer = std::make_shared< Timer >();
@@ -49,8 +49,6 @@ Object::Object(float x, float y, std::shared_ptr<Texture> textr, Type type , cSh
 	}
 	else {
 
-
-		collisionShape = std::make_shared< Circle >(x, y, static_cast< float >(textr->getWidth() / 2)) ;
 		setSkin(textr, type);
 	}
 }
@@ -71,12 +69,10 @@ Object::Object(std::shared_ptr< Vector2d > vec, std::shared_ptr<Texture> textr, 
 	setMass(100);
 	if (textr == nullptr) {
 
-		collisionShape = std::make_shared< Circle >(vec, 0);
 		this->type = type;
 	}
 	else {
 
-		collisionShape = std::make_shared< Circle >(vec, textr);
 		setSkin(textr, type);
 	}
 }
@@ -148,7 +144,6 @@ void Object::setSkin( std::shared_ptr<Texture> texture, Type type )
 
 	Pos( std::make_shared < Vector2d >( position->getX() - ( skin->getWidth() / 2.0f ), position->getY() - ( skin->getHeight() / 2.0f ) ) );
 	
-	//colShape->addShape(  Pos() , texture );
 }
 
 std::shared_ptr<Texture> Object::getSkin()
@@ -166,9 +161,6 @@ void Object::setType(Type type) {
 	this->type = type;
 }
 
-void Object::UpdateCircle() {
-	collisionCircle->setVec( position );
-}
 
 void Object::Rotation(float r) {
 	rotation = r;
@@ -190,7 +182,7 @@ float Object::Rotation(SPACE space) {
 
 void Object::Update( std::shared_ptr< Object > obj ) {
 	
-	UpdateCircle();
+	
 }
 
 
@@ -260,11 +252,6 @@ void Object::setMass(int x)
 float Object::getMass()
 {
 	return mass;
-}
-
-std::shared_ptr< Shape > Object::getShape()
-{
-	return collisionShape;
 }
 
 std::shared_ptr<Vector2d> Object::Velocity()

@@ -56,7 +56,7 @@ void Button::Draw()
 	if ( pressed == false )
 	{
 		
-		SDL_SetRenderDrawColor(SDL_wrapper::gRenderer, 169, 169, 169, 255); // the rect color (solid red)
+		SDL_SetRenderDrawColor(SDL_wrapper::gRenderer, 169, 169, 169, 255); // the 
 		
 		
 
@@ -73,7 +73,7 @@ void Button::collisionDetected(std::shared_ptr<Object> obj)
 	{
 		if ( std::static_pointer_cast< Mouse >( obj )->isLMBHold() == true )
 		{
-			std::cout << "Pressed" << std::endl;
+
 			pressed = true;
 
 		}

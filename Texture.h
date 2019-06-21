@@ -33,7 +33,7 @@ public:
 
 private:
 
-	std::unique_ptr< SDL_Texture > mTexture;
+	SDL_Texture* mTexture;
 
 	int mWidth;
 	int mHeight;

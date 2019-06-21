@@ -58,10 +58,6 @@ void Mouse::Update()
 		grabbedObj->updatePosition( Pos()->getX(), Pos()->getY() );
 	}
 
-	if( LMBHold == true )
-	{
-		std::cout << "LMBHOLD" << std::endl;
-	}
 
 	getColShape()->Update( Pos() );
 

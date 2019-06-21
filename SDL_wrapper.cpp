@@ -85,38 +85,9 @@ bool SDL_wrapper::Init()
 
 			TimerIns::Instance();
 			TextureManager::Initialize();
-			//txtrs = TextureManager::Initialize();
-			/*
-			cam = Camera::Instance();
-			pl = new Player();
-			cam->Init();
-			map = new Map();
-
-			printf("After map init\n");
-			map->Init();
-			printf("After map init\n");
-			cam->setMap();
-			*/
-			//map->Generate();
-
-		}
-		std::cout << "Game initialized" << std::endl;
-		/*{
-		int imgFlags = IMG_INIT_PNG;
-
-		if ( !( IMG_Init( imgFlags ) & imgFlags ) )
-		{
-		printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-		success = false;
-		} else
-		{
-
-		//Get window surface
-		gScreenSurface = SDL_GetWindowSurface(gWindow);
 
 		}
 
-		}*/
 
 	}
 
@@ -155,9 +126,6 @@ void SDL_wrapper::drawRect(std::shared_ptr<Rectangle> rect, const SDL_Color & co
 void SDL_wrapper::close()
 {
 
-	//gTextTexture.free();
-
-	//Free global font
 	TTF_CloseFont(gFont);
 	gFont = NULL;
 

@@ -207,7 +207,7 @@ void Vector2d::operator*=( float scalar )
 	setX( getX() * scalar );
 
 	setY( getY() * scalar );
-//return std::make_shared< Vector2d >(this);
+
 }
 std::shared_ptr<Vector2d> Vector2d::operator/( float scalar ) 
 {
@@ -220,7 +220,6 @@ void Vector2d::operator/=( float scalar )
 
 	setY( getY() / scalar );
 
-	//return std::make_shared< Vector2d >(this);
 }
 
 std::ostream & operator<<( std::ostream & out, const Vector2d & vec ) {
@@ -291,45 +290,4 @@ std::shared_ptr<Vector2d> projection(std::shared_ptr<Vector2d> vec1, std::shared
 {
 	float v2Len = vec2->lengthSqr();
 	return *vec2 * ( dotProduct( vec2, vec1 ) / v2Len );
-}
-
-//std::shared_ptr<Vector2d> closestPoint(std::shared_ptr<Vector2d> vec, std::shared_ptr<Line> line)
-//{
-//	Vector2d line1 = Vector2d( *line->Pos() - *line->getEndPoint() );
-//	Vector2d line2 = Vector2d( *vec - *line->Pos() );
-//
-//
-//	float lineLenght = line1.lengthSqr();
-//
-//	float t = std::max( 0, ( int )std::min( lineLenght, dotProduct( line1, line2 ) ) ) / lineLenght;
-//
-//	std::shared_ptr< Vector2d > closestPoint = std::make_shared< Vector2d >( line->getX() + t * line1.getX(), line->getY() * line1.getY() );
-//
-//	return closestPoint;
-//
-//}
-//
-//std::shared_ptr<Vector2d> closestPoint(int x, int y, std::shared_ptr<Line> line)
-//{
-//	Vector2d line1 = Vector2d( *line->Pos() - *line->getEndPoint() );
-//	Vector2d line2 = Vector2d( x - line->Pos()->getX(), y - line->Pos()->getY() );
-//
-//
-//	float lineLenght = line1.lengthSqr();
-//
-//	float t = std::max( 0, (int)std::min( lineLenght, dotProduct( line1, line2 ) ) ) / lineLenght;
-//
-//	std::shared_ptr< Vector2d > closestPoint = std::make_shared< Vector2d >( line->getX() + t * line1.getX(), line->getY() * line1.getY() );
-//
-//	return closestPoint;
-//
-//}
-
-float momentumConservation(std::shared_ptr< Object > obj1, std::shared_ptr< Object > obj2 )
-{
-	// Conservation of momentum in 1D
-	//float m1 = (dpNorm1 * (obj1->getMass() - obj2->getMass() ) + 2.0f * obj2->getMass() * dpNorm2 ) / ( obj1->getMass() + obj2->getMass());
-	//float m2 = (dpNorm2 * (obj.second->getMass() - obj.first->getMass()) + 2.0f * obj.first->getMass() * dpNorm1) / (obj.first->getMass() + obj.second->getMass());
-
-	return 0.0f;
 }

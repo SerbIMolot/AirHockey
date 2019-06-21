@@ -5,7 +5,7 @@
 Enemy::Enemy()
 	: Entity()
 {
-	//setMoveBounds(SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	setVelocity(0, 0);
 	
 	setSkin(TextureManager::getTexture("Rocket.png"), tPusher);
@@ -14,10 +14,9 @@ Enemy::Enemy()
 	Pos()->setY( SCREEN_HEIGHT / 2 );
 
 	getColShape()->addShape( Pos(), getSkin(), sCircle );
-	std::cout << Pos() << std::endl;
+
 	setMass(20);
-	maxMovementSpeed = 300;
-	eSpeed = 200.0f;
+
 	targetPos = std::make_shared< Vector2d >();
 	lastHit.start();
 	
@@ -30,7 +29,7 @@ Enemy::~Enemy()
 
 bool Enemy::puckInCorner()
 {
-	if ( puck->Pos()->getX() > SCREEN_WIDTH / 2 + 20 )
+	if ( puck->Pos()->getX() > SCREEN_WIDTH / 2 - 1 )
 	{
 		return true;
 	}
@@ -71,14 +70,14 @@ void Enemy::defence()
 }
 void Enemy::makeDecision()
 {
-	if ( puckInCorner() )
+	if ( puckInCorner()  )
 	{
-		std::cout << "ATTACK" << std::endl;
+
 		Attack();
+
 	}
 	else
 	{
-		std::cout << "DEFENCE" << std::endl;
 		defence();
 	}
 	
@@ -114,8 +113,8 @@ void Enemy::Update( std::shared_ptr< Object > obj1 )
 
 	}
 
-	//updatePosition();
-	getShape()->Update( Pos() );
+	
+	getColShape()->Update( Pos() );
 
 }
 
@@ -124,9 +123,9 @@ void Enemy::move()
 }
 void Enemy::Draw()
 {
-	std::cout << "EnemyDrawPos = " << Pos()->getX() << std::endl;
-	std::cout << "Enemy RADIUS = " << std::static_pointer_cast<Circle>(getColShape()->getShapes().front())->getRadius() << std::endl;
+
 	getSkin()->render( Pos()->getX() - getColShape()->getCircle()->getRadius(), Pos()->getY() - getColShape()->getCircle()->getRadius() );
+
 }
 
 void Enemy::setPuck(std::shared_ptr<Puck> puck)

@@ -2,7 +2,6 @@
 #include "TriggersManager.h"
 
 
-//std::vector< std::shared_ptr< Trigger > > TriggersManager::trigers = std::vector< std::shared_ptr< Trigger > >();
 TriggersManager* TriggersManager::trmInstance = nullptr;
 
 TriggersManager::TriggersManager()
@@ -31,7 +30,6 @@ TriggersManager* TriggersManager::Instance()
 
 void TriggersManager::addTrigger(int x, int y, int w, int h, std::string name)
 {
-	//Trigger::id += 1;
 
 	std::shared_ptr< Trigger > tr = std::make_shared< Trigger >( x, y, w, h );
 
@@ -71,11 +69,6 @@ void TriggersManager::collisionDetected( std::shared_ptr< Object > obj )
 			SoundManager::getSound("goal.wav")->play();
 
 			Board::aiPoints += 1;
-			
-			for (int i = 0 ; i < 10; i++)
-			{
-				std::cout << "AI GOAL score = " << i << std::endl;
-			}
 
 			tr->reset();
 
@@ -91,12 +84,6 @@ void TriggersManager::collisionDetected( std::shared_ptr< Object > obj )
 			SoundManager::getSound("goal.wav")->play();
 
 			Board::playerPoints += 1;
-
-			for (int i = 0; i < 10; i++)
-			{
-				std::cout << "Player GOAL score = " << i << std::endl;
-			}
-
 
 			tr->reset();
 

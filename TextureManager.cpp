@@ -95,9 +95,10 @@ void TextureManager::addText( std::string textureText, SDL_Color textColor, std:
 
 TextureManager* TextureManager::Initialize() {
 	if (tmInstance == nullptr) {
-		std::cout << "TEXT MAN" << std::endl;
+
 		tmInstance = new TextureManager();
 		tmInstance->loadTextures();
+
 	}
 	return tmInstance;
 }
@@ -105,12 +106,16 @@ TextureManager* TextureManager::Initialize() {
 void TextureManager::Close(std::string fileName) {
 
 	if (fileName == "all") {
+
 		Textures.clear();
 	}
 
 	for (auto t : Textures) {
 		if (t.first == fileName) {
+
+
 			Textures.erase(fileName);
+
 			break;
 		}
 	}

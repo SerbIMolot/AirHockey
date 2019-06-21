@@ -4,7 +4,6 @@
 
 class Puck : public Entity
 {
-	//std::shared_ptr< Vector2d > aceleration;
 
 	Circle collCirc;
 public:

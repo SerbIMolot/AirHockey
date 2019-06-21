@@ -23,8 +23,7 @@ Puck::~Puck()
 
 void Puck::Update(std::shared_ptr<Object> obj)
 {
-	std::cout << "Puck" << std::endl;
-	
+
 	Acceleration()->setX( ( -Velocity()->getX() * 0.99f) );
 	
 	Acceleration()->setY( ( -Velocity()->getY() * 0.99f ) );
@@ -38,14 +37,6 @@ void Puck::Update(std::shared_ptr<Object> obj)
 	Pos()->addY( ( Velocity()->getY() * (TimerIns::Instance()->DeltaTime() / 1000.0f) ) * 300 );
 	
 	colShape->Update( Pos() );
-
-	std::cout << "Puck" << std::endl;
-	//if ( fabs( Velocity()->getX() * Velocity()->getX() + Velocity()->getY() * Velocity()->getY()) < 0.001f)
-	//{
-	
-		//Velocity( 0, 0 );
-	
-	//}
 
 	if (Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front())->getRadius() <= 15)
 	{
@@ -82,9 +73,9 @@ void Puck::Update(std::shared_ptr<Object> obj)
 		Velocity()->setY( -Velocity()->getY() );
 	
 	}
-	std::cout << "Puck" << std::endl;
+
 	colShape->Update( Pos() );
-	std::cout << "Puck" << std::endl;
+
 }
 
 void Puck::move()
@@ -100,8 +91,9 @@ void Puck::collisionDetected( std::shared_ptr<Object> obj )
 {
 	if( obj->getType() == tPusher && timer->getTicks() > 200 )
 	{
-		std::cout << "PUCK PUSHER HIT" << std::endl;
+		
 		SoundManager::getSound("puck_hit.wav")->play();
+
 		timer->stop();
 		timer->start();
 	}
