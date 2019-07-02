@@ -286,6 +286,11 @@ float dotProduct( float x1, float y1, float x2, float y2)
 	return x1 * x2 + y1 * y2;
 }
 
+float crossProduct(std::shared_ptr< Vector2d > vec1, std::shared_ptr< Vector2d > vec2)
+{
+	return ;
+}
+
 std::shared_ptr<Vector2d> projection(std::shared_ptr<Vector2d> vec1, std::shared_ptr<Vector2d> vec2)
 {
 	float v2Len = vec2->lengthSqr();

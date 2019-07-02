@@ -70,7 +70,15 @@ void Collision::Update()
 					obj2->collisionDetected( obj1 );
 					continue;
 				}
-				
+				if ( obj1->getType() != tWall && obj2->getType() != tWall
+					 )
+				{
+					printf(" collision %d\n", obj1->getType());
+					printf(" collision %d\n", obj2->getType());
+
+
+				}
+
 				addCollidedObject( obj1, obj2 );
 				
 				

@@ -45,10 +45,10 @@ void Puck::Update(std::shared_ptr<Object> obj)
 
 	}
 
-	if (Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front())->getRadius() <= 15)
+	if (Pos()->getX() - std::static_pointer_cast<Circle>(getColShape()->getShapes().front())->getRadius() <= 0)
 	{
 
-		Pos()->setX( getColShape()->getCircle()->getRadius() + 15 );
+		Pos()->setX( getColShape()->getCircle()->getRadius() + 0 );
 		
 		Velocity()->setX(-Velocity()->getX());
 
@@ -57,25 +57,25 @@ void Puck::Update(std::shared_ptr<Object> obj)
 	if (Pos()->getY() - getColShape()->getCircle()->getRadius() <= 15)
 	{
 
-		Pos()->setY(getColShape()->getCircle()->getRadius() + 15 );
+		Pos()->setY(getColShape()->getCircle()->getRadius() + 0 );
 		
 		Velocity()->setY(-Velocity()->getY());
 	
 	}
 
-	if (Pos()->getX() + getColShape()->getCircle()->getRadius() >= SCREEN_WIDTH - 15 )
+	if (Pos()->getX() + getColShape()->getCircle()->getRadius() >= SCREEN_WIDTH - 0 )
 	{
 		
-		Pos()->setX((SCREEN_WIDTH) - getColShape()->getCircle()->getRadius() - 15 );
+		Pos()->setX((SCREEN_WIDTH) - getColShape()->getCircle()->getRadius() - 0 );
 	
 		Velocity()->setX( -Velocity()->getX() );
 	
 	}
 
-	if (Pos()->getY() + getColShape()->getCircle()->getRadius() >= SCREEN_HEIGHT - 15)
+	if (Pos()->getY() + getColShape()->getCircle()->getRadius() >= SCREEN_HEIGHT - 0)
 	{
 	
-		Pos()->setY( (SCREEN_HEIGHT) - getColShape()->getCircle()->getRadius() - 15 );
+		Pos()->setY( (SCREEN_HEIGHT) - getColShape()->getCircle()->getRadius() - 0 );
 	
 		Velocity()->setY( -Velocity()->getY() );
 	
